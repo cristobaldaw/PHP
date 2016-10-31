@@ -62,9 +62,7 @@
 						<div class="form-group row">
 							<label for="example-datetime-local-input" class="col-md-4 col-form-label"><strong>Provincia</strong></label>
 							<div class="col-md-8">
-								<select name="provincia">
-									<?php SelectProvincias(); ?>
-								</select>
+								<?= CreaSelect('provincia', $listaprovincias, ValorPost('provincia')); ?>
 							</div>
 						</div>
 						<div class="form-group row">
@@ -98,7 +96,7 @@
 							</div>
 						</div>
 						<ul class="list-inline float-md-right">
-							<li class="list-inline-item"><button type="button" class="btn btn-outline-secondary" onclick="location.href='../controllers/ctr_admin.php'">Cancelar</button></li>
+							<li class="list-inline-item"><button type="button" class="btn btn-outline-secondary" onclick='location.href="../controllers/ctr_admin.php"''>Cancelar</button></li>
 							<li class="list-inline-item"><button type="submit" class="btn btn-outline-primary">Añadir</button></li>
 						</ul>
 					</form>

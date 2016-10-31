@@ -18,11 +18,8 @@
 			<div class="card card-outline-secondary" id="card-formulario">
 				<div class="card-block text-md-center">
 					<h2>¿Desea eliminar esta oferta?</h2><br>
-					<form method="post">
 						<?php
-						$datos = DatosUnaOferta($_POST["id"]);
 						foreach ($datos as $dato) { ?>
-							id: <?=$dato['id']?><br>
 							<strong>Descripción: </strong><?=$dato['descripcion']?><br>
 							<strong>Persona de contacto: </strong><?=$dato['persona_contacto']?><br>
 							<strong>Teléfono de contacto: </strong><?=$dato['telefono_contacto']?><br>
@@ -36,11 +33,12 @@
 							<strong>Fecha de comunicación: </strong><?=$dato['fecha_comunicacion']?><br>
 							<strong>Psicólogo encargado: </strong><?=$dato['psicologo_encargado']?><br>
 							<strong>Candidato seleccionado: </strong><?=$dato['candidato_seleccionado']?><br>
-							<strong>Otros datos del candidato: </strong><?=$dato['otros_datos_candidato']?><br><br>
-							<button type="button" class="btn btn-outline-secondary" onclick="window.history.go(-1)">Cancelar</button>
-							<button type="submit" class="btn btn-outline-primary" type="submit" name="eliminar2">Eliminar</button>
-							<input type="hidden" name="id" value="<?=$_POST['id']?>"> <!-- Aquí recibo el campo oculto de la vista de administrador y lo vuelvo a mandar al controlador del administrador --> <?php
+							<strong>Otros datos del candidato: </strong><?=$dato['otros_datos_candidato']?><br><br> <?php
 						} ?>
+					<form method="post" action="../controllers/ctr_eliminar.php">
+						<button type="button" class="btn btn-outline-secondary" onclick="window.history.go(-1)">Cancelar</button>
+						<button type="submit" class="btn btn-outline-primary" name="eliminar2">Eliminar</button>
+						<input type="hidden" name="id" value="<?=$_POST['id']?>"> <!-- Aquí recibo el campo oculto de la vista de administrador y lo vuelvo a mandar al controlador de eliminar -->
 					</form>
 				</div>
 			</div>

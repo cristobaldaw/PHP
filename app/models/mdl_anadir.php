@@ -65,20 +65,15 @@ function EscribeErrores() {
 	}
 }
 
-function SelectProvincias() {
+function ListaProvincias() {
 	$conex = BD::getInstance();
 	$conex->Consulta("select * from tbl_provincias order by nombre");
 	while ($reg = $conex->LeeRegistro()) {
-		$provincias[] = $reg;
+		$provincias[$reg["cod"]] = $reg["nombre"];
 	}
-	foreach ($provincias as $provincia) {
-		if ($_POST["provincia"] == $provincia["nombre"]) { ?> <!-- Si coincide con la provincia que se ha enviado en el post, se añade la propiedad selected -->
-			<option value="<?=$provincia['nombre']?>" selected="selected"><?=$provincia['nombre']?></option> <?php
-		} else { ?>
-			<option value="<?=$provincia['nombre']?>"><?=$provincia['nombre']?></option> <?php
-		}
-	}
+	return $provincias;
 }
+
 
 function RadioEstado() {
 	$values = array(
@@ -113,4 +108,29 @@ function ValorPost($nombreCampo) {
 	if (isset($_POST[$nombreCampo])) {
 		return $_POST[$nombreCampo];
 	}
+}
+
+/**
+ *
+ * @param string $name Nombre del campo
+ * @param array $opciones Opciones que tiene el select
+ * 			clave array=valor option
+ * 			valor array=texto option
+ * @param string $valorDefecto Valor seleccionado
+ * @return string
+ */
+function CreaSelect($name, $opciones, $valorDefecto = '')
+{
+	$html="\n".'<select name="'.$name.'">';
+	foreach($opciones as $value=>$text)
+	{
+		if ($value==$valorDefecto)
+			$select='selected="selected"';
+		else
+			$select="";
+		$html.= "\n\t<option value=\"$value\" $select>$text</option>";
+	}
+	$html.="\n</select>";
+
+	return $html;
 }

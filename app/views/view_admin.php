@@ -64,19 +64,19 @@ $total_paginas = ceil($num_total_registros / $TAMANO_PAGINA);
 								<td id="opciones">
 									<ul class="list-inline">
 										<li class="list-inline-item">
-											<form method="post">
+											<form method="post" action="../controllers/ctr_informacion.php">
 												<button type="submit" name="informacion" class="btn btn-sm btn-info"><i class="fa fa-info-circle" aria-hidden="true"></i></button>
 												<input type="hidden" name="id" value="<?=$elemento['id']?>"> <!-- Guardo en un campo oculto el id de cada oferta para mandarlo a la vista -->
 											</form>
 										</li>
 										<li class="list-inline-item">
-											<form method="post">
+											<form method="post" action="../controllers/ctr_modificar.php">
 												<button type="submit" name="modificar" class="btn btn-sm btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i></button>
 												<input type="hidden" name="id" value="<?=$elemento['id']?>">
 											</form>
 										</li>
 										<li class="list-inline-item">
-											<form method="post">
+											<form method="post" action="../controllers/ctr_eliminar.php">
 												<button type="submit" name="eliminar" class="btn btn-sm btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
 												<input type="hidden" name="id" value="<?=$elemento['id']?>">
 											</form>

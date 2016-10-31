@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-10-2016 a las 23:34:27
+-- Tiempo de generación: 31-10-2016 a las 17:17:38
 -- Versión del servidor: 10.1.16-MariaDB
 -- Versión de PHP: 5.6.24
 
@@ -50,18 +50,13 @@ CREATE TABLE `tbl_ofertas` (
 
 INSERT INTO `tbl_ofertas` (`id`, `descripcion`, `persona_contacto`, `telefono_contacto`, `email`, `direccion`, `poblacion`, `codigo_postal`, `provincia`, `estado`, `fecha_creacion`, `fecha_comunicacion`, `psicologo_encargado`, `candidato_seleccionado`, `otros_datos_candidato`) VALUES
 (417, 'Descripcion 1', 'Persona de contacto 1', 'Teléfono 1', 'Correo 1', NULL, NULL, NULL, 'Provincia 1', NULL, '2016-10-30', NULL, NULL, NULL, NULL),
-(418, 'Descripcion 2', 'Persona de contacto 2', 'Teléfono 2', 'Correo 2', NULL, NULL, NULL, 'Provincia 2', NULL, '2016-10-30', NULL, NULL, NULL, NULL),
-(419, 'Descripcion 3', 'Persona de contacto 3', 'Teléfono 3', 'Correo 3', NULL, NULL, NULL, 'Provincia 3', NULL, '2016-10-30', NULL, NULL, NULL, NULL),
 (420, 'Descripcion 4', 'Persona de contacto 4', 'Teléfono 4', 'Correo 4', NULL, NULL, NULL, 'Provincia 4', NULL, '2016-10-30', NULL, NULL, NULL, NULL),
-(421, 'Descripcion 5', 'Persona de contacto 5', 'Teléfono 5', 'Correo 5', NULL, NULL, NULL, 'Provincia 5', NULL, '2016-10-30', NULL, NULL, NULL, NULL),
 (422, 'Descripcion 6', 'Persona de contacto 6', 'Teléfono 6', 'Correo 6', NULL, NULL, NULL, 'Provincia 6', NULL, '2016-10-30', NULL, NULL, NULL, NULL),
-(423, 'Descripcion 7', 'Persona de contacto 7', 'Teléfono 7', 'Correo 7', NULL, NULL, NULL, 'Provincia 7', NULL, '2016-10-30', NULL, NULL, NULL, NULL),
 (424, 'Descripcion 8', 'Persona de contacto 8', 'Teléfono 8', 'Correo 8', NULL, NULL, NULL, 'Provincia 8', NULL, '2016-10-30', NULL, NULL, NULL, NULL),
 (425, 'Descripcion 9', 'Persona de contacto 9', 'Teléfono 9', 'Correo 9', NULL, NULL, NULL, 'Provincia 9', NULL, '2016-10-30', NULL, NULL, NULL, NULL),
 (426, 'Descripcion 10', 'Persona de contacto 10', 'Teléfono 10', 'Correo 10', NULL, NULL, NULL, 'Provincia 10', NULL, '2016-10-30', NULL, NULL, NULL, NULL),
 (427, 'Descripcion 11', 'Persona de contacto 11', 'Teléfono 11', 'Correo 11', NULL, NULL, NULL, 'Provincia 11', NULL, '2016-10-30', NULL, NULL, NULL, NULL),
 (428, 'Descripcion 12', 'Persona de contacto 12', 'Teléfono 12', 'Correo 12', NULL, NULL, NULL, 'Provincia 12', NULL, '2016-10-30', NULL, NULL, NULL, NULL),
-(429, 'Descripcion 13', 'Persona de contacto 13', 'Teléfono 13', 'Correo 13', NULL, NULL, NULL, 'Provincia 13', NULL, '2016-10-30', NULL, NULL, NULL, NULL),
 (430, 'Descripcion 14', 'Persona de contacto 14', 'Teléfono 14', 'Correo 14', NULL, NULL, NULL, 'Provincia 14', NULL, '2016-10-30', NULL, NULL, NULL, NULL),
 (431, 'Descripcion 15', 'Persona de contacto 15', 'Teléfono 15', 'Correo 15', NULL, NULL, NULL, 'Provincia 15', NULL, '2016-10-30', NULL, NULL, NULL, NULL),
 (432, 'Descripcion 16', 'Persona de contacto 16', 'Teléfono 16', 'Correo 16', NULL, NULL, NULL, 'Provincia 16', NULL, '2016-10-30', NULL, NULL, NULL, NULL),
@@ -98,7 +93,8 @@ INSERT INTO `tbl_ofertas` (`id`, `descripcion`, `persona_contacto`, `telefono_co
 (463, 'Descripcion 47', 'Persona de contacto 47', 'Teléfono 47', 'Correo 47', NULL, NULL, NULL, 'Provincia 47', NULL, '2016-10-30', NULL, NULL, NULL, NULL),
 (464, 'Descripcion 48', 'Persona de contacto 48', 'Teléfono 48', 'Correo 48', NULL, NULL, NULL, 'Provincia 48', NULL, '2016-10-30', NULL, NULL, NULL, NULL),
 (465, 'Descripcion 49', 'Persona de contacto 49', 'Teléfono 49', 'Correo 49', NULL, NULL, NULL, 'Provincia 49', NULL, '2016-10-30', NULL, NULL, NULL, NULL),
-(466, 'Descripcion 50', 'Persona de contacto 50', 'Teléfono 50', 'Correo 50', NULL, NULL, NULL, 'Provincia 50', NULL, '2016-10-30', NULL, NULL, NULL, NULL);
+(466, 'Descripcion 50', 'Persona de contacto 50', 'Teléfono 50', 'Correo 50', NULL, NULL, NULL, 'Provincia 50', NULL, '2016-10-30', NULL, NULL, NULL, NULL),
+(467, 'aa', 'aa', '1111', 'aaa@hotmail.com', 'aa', 'aa', '11115', '18', 'R', '2016-10-31', '2016-11-01', '', '', '');
 
 --
 -- Disparadores `tbl_ofertas`
@@ -115,66 +111,67 @@ DELIMITER ;
 --
 
 CREATE TABLE `tbl_provincias` (
-  `nombre` varchar(20) COLLATE utf8_spanish_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `cod` char(2) NOT NULL DEFAULT '00' COMMENT 'Código de la provincia de dos digitos',
+  `nombre` varchar(50) NOT NULL DEFAULT '' COMMENT 'Nombre de la provincia'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Provincias de españa; 99 para seleccionar a Nacional';
 
 --
 -- Volcado de datos para la tabla `tbl_provincias`
 --
 
-INSERT INTO `tbl_provincias` (`nombre`) VALUES
-('A Coruña'),
-('Álava'),
-('Albacete'),
-('Alicante'),
-('Almería'),
-('Asturias'),
-('Ávila'),
-('Badajoz'),
-('Barcelona'),
-('Burgos'),
-('Cáceres'),
-('Cádiz'),
-('Cantabria'),
-('Castellón'),
-('Ceuta'),
-('Ciudad Real'),
-('Córdoba'),
-('Cuenca'),
-('Girona'),
-('Granada'),
-('Guadalajara'),
-('Guipzcoa'),
-('Huelva'),
-('Huesca'),
-('Islas Baleares'),
-('Jaén'),
-('La Rioja'),
-('Las Palmas'),
-('León'),
-('Lleida'),
-('Lugo'),
-('Madrid'),
-('Málaga'),
-('Melilla'),
-('Murcia'),
-('Navarra'),
-('Ourense'),
-('Palencia'),
-('Pontevedra'),
-('S. Cruz de Tenerife'),
-('Salamanca'),
-('Segovia'),
-('Sevilla'),
-('Soria'),
-('Tarragona'),
-('Teruel'),
-('Toledo'),
-('Valencia'),
-('Valladolid'),
-('Vizcaya'),
-('Zamora'),
-('Zaragoza');
+INSERT INTO `tbl_provincias` (`cod`, `nombre`) VALUES
+('15', 'A Coruña'),
+('01', 'Alava'),
+('02', 'Albacete'),
+('03', 'Alicante'),
+('04', 'Almería'),
+('33', 'Asturias'),
+('05', 'Ávila'),
+('06', 'Badajoz'),
+('08', 'Barcelona'),
+('09', 'Burgos'),
+('10', 'Cáceres'),
+('11', 'Cádiz'),
+('39', 'Cantabria'),
+('12', 'Castellón'),
+('51', 'Ceuta'),
+('13', 'Ciudad Real'),
+('14', 'Córdoba'),
+('16', 'Cuenca'),
+('17', 'Girona'),
+('18', 'Granada'),
+('19', 'Guadalajara'),
+('20', 'Guipzcoa'),
+('21', 'Huelva'),
+('22', 'Huesca'),
+('07', 'Islas Baleares'),
+('23', 'Jaén'),
+('26', 'La Rioja'),
+('35', 'Las Palmas'),
+('24', 'León'),
+('25', 'Lleida'),
+('27', 'Lugo'),
+('28', 'Madrid'),
+('29', 'Málaga'),
+('52', 'Melilla'),
+('30', 'Murcia'),
+('31', 'Navarra'),
+('32', 'Ourense'),
+('34', 'Palencia'),
+('36', 'Pontevedra'),
+('38', 'S. Cruz de Tenerife'),
+('37', 'Salamanca'),
+('40', 'Segovia'),
+('41', 'Sevilla'),
+('42', 'Soria'),
+('43', 'Tarragona'),
+('44', 'Teruel'),
+('45', 'Toledo'),
+('46', 'Valencia'),
+('47', 'Valladolid'),
+('48', 'Vizcaya'),
+('49', 'Zamora'),
+('50', 'Zaragoza');
 
 --
 -- Índices para tablas volcadas
@@ -190,7 +187,8 @@ ALTER TABLE `tbl_ofertas`
 -- Indices de la tabla `tbl_provincias`
 --
 ALTER TABLE `tbl_provincias`
-  ADD PRIMARY KEY (`nombre`);
+  ADD PRIMARY KEY (`cod`),
+  ADD KEY `nombre` (`nombre`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -200,7 +198,7 @@ ALTER TABLE `tbl_provincias`
 -- AUTO_INCREMENT de la tabla `tbl_ofertas`
 --
 ALTER TABLE `tbl_ofertas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=467;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=468;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

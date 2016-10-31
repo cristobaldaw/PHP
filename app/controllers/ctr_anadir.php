@@ -1,5 +1,6 @@
 <?php
 include "../models/mdl_anadir.php";
+$listaprovincias = ListaProvincias(); 
 if (!$_POST) {
 	include "../views/view_anadir.php";
 } else {

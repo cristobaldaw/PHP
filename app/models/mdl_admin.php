@@ -1,5 +1,5 @@
 <?php
-include "bd_singleton.php";
+include_once "bd_singleton.php";
 
 function ListaOfertasPaginacion($inicio, $tamano_pagina) {
 	$conex = BD::getInstance();
@@ -10,21 +10,6 @@ function ListaOfertasPaginacion($inicio, $tamano_pagina) {
 	if (!empty($lista)) {
 		return $lista;
 	}
-}
-
-function DatosUnaOferta($id) {
-	$conex = BD::getInstance();
-	$conex->Consulta("select *, DATE_FORMAT(fecha_creacion,'%d/%m/%Y') as fecha_creacion, DATE_FORMAT(fecha_creacion,'%d/%m/%Y') as fecha_comunicacion from tbl_ofertas where id = '$id'");
-	while ($reg = $conex->LeeRegistro()) {
-		$datos[] = $reg;
-	}
-	return $datos;
-}
-
-function EliminaOferta($id) {
-	$conex = BD::getInstance();
-	$sql = "delete from tbl_ofertas where id = '$id'";
-	$conex->Ejecutar($sql);
 }
 
 function TotalOfertas() {

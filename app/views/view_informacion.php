@@ -18,7 +18,6 @@
 			<div class="card card-outline-secondary" id="card-formulario">
 				<div class="card-block text-md-center">
 						<?php
-						$datos = DatosUnaOferta($_POST["id"]);
 						foreach ($datos as $dato) { ?>
 							<strong>Descripción: </strong><?=$dato['descripcion']?><br>
 							<strong>Persona de contacto: </strong><?=$dato['persona_contacto']?><br>
