@@ -18,5 +18,5 @@ function TotalOfertas() {
 	while ($reg = $conex->LeeRegistro()) {
 		$total = $reg;
 	}
-	return $total;
+	return $total["total"];
 }

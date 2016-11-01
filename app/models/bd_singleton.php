@@ -11,9 +11,6 @@ $db_conf=array(
 
 
 Class BD {
-
-	
-	
 	private $link;
 	private $result;
 	private $regActual;

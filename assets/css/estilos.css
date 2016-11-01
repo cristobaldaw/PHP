@@ -22,10 +22,6 @@ tbody {
 	background-color: white;
 }
 
-#opciones {
-	width: 15%;
-}
-
 ul.pagination {
     display: inline-block;
     padding: 0;
@@ -50,4 +46,10 @@ ul.pagination li a.active {
 
 ul.pagination li a:hover:not(.active) {
 	background-color: #ddd;
+}
+
+#grad1 {
+    background: linear-gradient(141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
+    color:white;
+    opacity:0.95;
 }

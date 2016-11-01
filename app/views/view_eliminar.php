@@ -27,7 +27,7 @@
 							<strong>Dirección: </strong><?=$dato['direccion']?><br>
 							<strong>Población: </strong><?=$dato['poblacion']?><br>
 							<strong>Código postal: </strong><?=$dato['codigo_postal']?><br>
-							<strong>Provincia: </strong><?=$dato['provincia']?><br>
+							<strong>Provincia: </strong><?=NombreProvincia($dato['provincia'])?><br>
 							<strong>Estado: </strong><?=TextoEstado($dato['estado'])?><br>
 							<strong>Fecha de creación: </strong><?=$dato['fecha_creacion']?><br>
 							<strong>Fecha de comunicación: </strong><?=$dato['fecha_comunicacion']?><br>

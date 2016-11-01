@@ -1,55 +1,16 @@
 <?php
-include "bd_singleton.php";
+include_once "bd_singleton.php";
 
-function DatosUnaOferta($id) {
-	$conex = BD::getInstance();
-	$conex->Consulta("select *, DATE_FORMAT(fecha_creacion,'%d/%m/%Y') as fecha_creacion, DATE_FORMAT(fecha_creacion,'%d/%m/%Y') as fecha_comunicacion from tbl_ofertas where id = '$id'");
-	while ($reg = $conex->LeeRegistro()) {
-		$datos[] = $reg;
-	}
-	return $datos;
+function ModificaOferta($campos) {
+	$conex = BD::GetInstance();
+	$sql = "update tbl_ofertas set descripcion = '$campos[descripcion]', persona_contacto = '$campos[persona_contacto]', telefono_contacto = '$campos[telefono_contacto]', email = '$campos[email]', direccion = '$campos[direccion]', poblacion = '$campos[poblacion]', codigo_postal = '$campos[codigo_postal]', provincia = '$campos[provincia]', estado = '$campos[estado]', fecha_comunicacion = STR_TO_DATE('$campos[fecha_comunicacion]', '%d/%m/%Y'), psicologo_encargado = '$campos[psicologo_encargado]', candidato_seleccionado = '$campos[candidato_seleccionado]', otros_datos_candidato = '$campos[otros_datos_candidato]' where id = '$campos[id]'";
+	$conex->Ejecutar($sql);
 }
 
-function TextoEstado($estado) {
-	$texto = "";
-	switch ($estado) {
-		case "P":
-			$texto = "Pendiente de iniciar selección";
-			break;
-		case "R":
-			$texto = "Realizando selección";
-			break;
-		case "S":
-			$texto = "Seleccionando candidato";
-			break;
-		case "C":
-			$texto = "Cancelada";
-			break;
-	}
-	return $texto;
-}
-
-function ListaProvincias() {
-	$conex = BD::getInstance();
-	$conex->Consulta("select * from tbl_provincias order by nombre");
-	while ($reg = $conex->LeeRegistro()) {
-		$provincias[$reg["cod"]] = $reg["nombre"];
-	}
-	return $provincias;
-}
-
-/**
- *
- * @param string $name Nombre del campo
- * @param array $opciones Opciones que tiene el select
- * 			clave array=valor option
- * 			valor array=texto option
- * @param string $valorDefecto Valor seleccionado
- * @return string
- */
 function CreaSelect($name, $opciones, $valorDefecto='')
 {
 	$html="\n".'<select name="'.$name.'">';
+	$html.="\n\t<option value=\"\">- Seleccione -</option>";
 	foreach($opciones as $value=>$text)
 	{
 		if ($value==$valorDefecto)
@@ -63,8 +24,32 @@ function CreaSelect($name, $opciones, $valorDefecto='')
 	return $html;
 }
 
-function ValorPost($nombreCampo) {
-	if (isset($_POST[$nombreCampo])) {
-		return $_POST[$nombreCampo];
+function CreaRadio($name, $opciones, $valorDefecto='') {
+	foreach ($opciones as $value=>$text)
+	{
+		$html="";
+		foreach ($opciones as $value=>$text) {
+			if ($value==$valorDefecto)
+				$checked='checked="checked"';
+			else
+				$checked="";
+			$html.="\n<label><input type=\"radio\" name=\"$name\" value=\"$value\" $checked> $text</label><br>";
+		}
+		return $html;
+	}
+}
+
+function ValorPost($nombreCampo, $valorPorDefecto = '') {
+	if (isset ( $_POST [$nombreCampo] ))
+		return $_POST [$nombreCampo];
+	else
+		return $valorPorDefecto;
+}
+
+function EstaVacio($valor) {
+	if (empty(trim($valor))) {
+		return true;
+	} else {
+		return false;
 	}
 }

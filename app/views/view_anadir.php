@@ -4,8 +4,11 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="assets/js/jquery.js"></script>
+	<script src="assets/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="../../assets/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="../../assets/css/estilos.css">
+	<link rel="stylesheet" href="../../assets/css/font-awesome.min.css">
 	<title>Añadir oferta</title>
 </head>
 <body>
@@ -15,8 +18,17 @@
 			<hr>		
 			<div class="card card-outline-secondary" id="card-formulario">
 				<div class="card-block">
-					<form method="post">
-						<?php EscribeErrores(); ?>
+					<form method="post" action="../controllers/ctr_anadir.php">
+						<?php
+						if (!empty($errores)) { ?>
+							<div class="alert alert-danger">
+								<ul> <?php
+									foreach ($errores as $error) { ?>
+										<li><?=$error['error']?></li> <?php
+									} ?>
+								</ul>
+							</div> <?php
+						} ?>
 						<div class="form-group row">
 							<label for="descripcion" class="col-md-4 col-form-label"><strong>Descripción</strong></label>
 							<div class="col-md-8">
@@ -68,7 +80,7 @@
 						<div class="form-group row">
 							<label for="estado" class="col-md-4 col-form-label"><strong>Estado</strong></label>
 							<div class="col-md-8">
-								<?php RadioEstado(); ?>
+								<?= CreaRadio("estado", $estados, ValorPost('estado')); ?>
 							</div>
 						</div>
 						<div class="form-group row">
@@ -104,9 +116,5 @@
 			</div>
 		</div>
 	</div>
-
-
-	<script src="assets/js/jquery.js"></script>
-	<script src="assets/js/bootstrap.min.js"></script>
 </body>
 </html>
