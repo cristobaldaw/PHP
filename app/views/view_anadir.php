@@ -16,7 +16,7 @@
 		<div class="col-md-8 offset-md-2">
 			<h1 class="text-md-center">Añadir una nueva oferta</h1>
 			<hr>		
-			<div class="card card-outline-secondary" id="card-formulario">
+			<div class="card card-outline-secondary card-formulario">
 				<div class="card-block">
 					<form method="post" action="../controllers/ctr_anadir.php">
 						<?php

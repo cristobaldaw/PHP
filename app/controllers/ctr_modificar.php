@@ -1,7 +1,7 @@
 <?php
 include "../models/filtrado.php";
-include "../models/mdl_modificar.php";
-include_once "../models/funciones.php";
+include_once "../models/modelo.php";
+include_once "../helpers/helper.php";
 $datos = DatosUnaOferta($_POST["id"]);
 $listaprovincias = ListaProvincias();
 $estados = array(

@@ -15,7 +15,7 @@
 		<div class="col-md-8 offset-md-2">
 			<h1 class="text-md-center">Información completa sobre la oferta</h1>
 			<hr>
-			<div class="card card-outline-secondary" id="card-formulario">
+			<div class="card card-outline-secondary card-formulario">
 				<div class="card-block text-md-center">
 						<?php
 						foreach ($datos as $dato) { ?>

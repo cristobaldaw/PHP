@@ -1,7 +1,7 @@
 <?php
 include "../models/filtrado.php";
-include "../models/mdl_anadir.php";
-include_once "../models/funciones.php";
+include_once "../models/modelo.php";
+include_once "../helpers/helper.php";
 $listaprovincias = ListaProvincias();
 $estados = array(
 	"P" => "Pendiente de iniciar selección",
