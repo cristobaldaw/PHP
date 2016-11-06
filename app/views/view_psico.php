@@ -1,9 +1,8 @@
 <div class="container">
 	<div class="jumbotron jumbotron text-md-center jumbotron-azul">
-		<h1 class="display-3">Panel de administrador</h1>
+		<h1 class="display-3">Panel de psicólogo</h1>
 		<hr class="my-2">
 		<p class="lead">
-		<a href="?ctrl=ctrl_anadir" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Añadir nueva oferta</a>
 		<a href="?ctrl=ctrl_buscar" class="btn btn-primary"><i class="fa fa-search" aria-hidden="true"></i> Buscar</a>
 		</p>
 	</div>
@@ -39,10 +38,7 @@
 							<a href="?ctrl=ctrl_informacion&id=<?=$elemento['id']?>" class="btn btn-sm btn-info" title="Información"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
 						</li>
 						<li class="list-inline-item">
-							<a href="?ctrl=ctrl_mod_admin&id=<?=$elemento['id']?>" class="btn btn-sm btn-primary" title="Modificar"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-						</li>
-						<li class="list-inline-item">
-							<a href="?ctrl=ctrl_eliminar&id=<?=$elemento['id']?>" class="btn btn-sm btn-danger" title="Eliminar"><i class="fa fa-trash" aria-hidden="true"></i></a>
+							<a href="?ctrl=ctrl_mod_psico&id=<?=$elemento['id']?>" class="btn btn-sm btn-primary" title="Modificar"><i class="fa fa-pencil" aria-hidden="true"></i></a>
 						</li>
 					</ul>
 				</td>
@@ -51,5 +47,5 @@
 	} ?>
 </tbody>
 </table>
-<?= Paginacion($total_ofertas, $tamano_pagina, $total_paginas, $pagina, "ctrl_admin"); ?>
+<?= Paginacion($total_ofertas, $tamano_pagina, $total_paginas, $pagina, "ctrl_psico"); ?>
 </div>

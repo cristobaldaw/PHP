@@ -1,6 +1,6 @@
 <?php
-include_once "../models/modelo.php";
-include_once "../helpers/helper.php";
+include MODEL_PATH."modelo.php";
+include HELP_PATH."helper.php";
 // Paginación
 $tamano_pagina = 10;
 if (!isset($_GET["pagina"])) {
@@ -10,13 +10,8 @@ if (!isset($_GET["pagina"])) {
 	$pagina = $_GET["pagina"];
     $inicio = ($pagina - 1) * $tamano_pagina;
 }
-
-$campos = array(
-	"descripcion" => "Descripción",
-	"persona_contacto" => "Persona de contacto",
-	"email" => "Correo electrónico");
 	
 $total_ofertas = TotalOfertas();
 $total_paginas = ceil($total_ofertas / $tamano_pagina);
 $lista = ListaOfertasPaginacion($inicio, $tamano_pagina);
-include "../views/view_admin.php";
+include VIEW_PATH."view_admin.php";

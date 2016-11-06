@@ -48,12 +48,21 @@ ul.pagination li a:hover:not(.active) {
 	background-color: #ddd;
 }
 
-#grad1 {
+.jumbotron-azul {
     background: linear-gradient(141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
     color:white;
     opacity:0.95;
 }
 
+.opciones {
+    width: 12%;
+}
+
 #form_buscar {
     margin-left: -1.4%;
+}
+
+.btn_volver {
+    margin-top: -10%;
+    margin-left: -2%;
 }

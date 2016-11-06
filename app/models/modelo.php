@@ -39,6 +39,12 @@ function ModificaOferta($campos) {
 	$conex->Ejecutar($sql);
 }
 
+function ModificaOfertaPsico($id, $estado, $candidato_seleccionado, $otros_datos_candidato) {
+	$conex = BD::GetInstance();
+	$sql = "update tbl_ofertas set estado = '$estado', candidato_seleccionado = '$candidato_seleccionado', otros_datos_candidato = '$otros_datos_candidato' where id = '$id'";
+	$conex->Ejecutar($sql);
+}
+
 function BuscaOfertaPaginacion($campo, $busqueda, $inicio, $tamano_pagina) {
 	$conex = BD::getInstance();
 	$conex->Consulta("select * from tbl_ofertas where lower($campo) like lower('$busqueda%') limit $inicio, $tamano_pagina");
@@ -56,7 +62,11 @@ function TotalResultados($campo, $busqueda) {
 	while ($rs = $conex->LeeRegistro()) {
 		$total = $rs;
 	}
-	return $total["total"];
+	if (!empty($total)) {
+		return $total["total"];
+	} else {
+		return 0;
+	}
 }
 
 function DatosUnaOferta($id) {

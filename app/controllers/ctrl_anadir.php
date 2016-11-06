@@ -1,7 +1,7 @@
 <?php
-include "../models/filtrado.php";
-include_once "../models/modelo.php";
-include_once "../helpers/helper.php";
+include HELP_PATH."filtrado.php";
+include MODEL_PATH."modelo.php";
+include HELP_PATH."helper.php";
 $listaprovincias = ListaProvincias();
 $estados = array(
 	"P" => "Pendiente de iniciar selección",
@@ -9,11 +9,11 @@ $estados = array(
 	"S" => "Seleccionado candidato",
 	"C" => "Cancelada");
 if (!$_POST) {
-	include "../views/view_anadir.php";
+	include VIEW_PATH."view_anadir.php";
 } else {
 	$errores = Errores();
 	if (in_array(true, $errores)) { // Si el array contiene algún valor true, es que hay algún error
-		include "../views/view_anadir.php";
+		include VIEW_PATH."view_anadir.php";
 	} else {
 		if (!isset($_POST["estado"])) {
 			$_POST["estado"] = "";
@@ -22,6 +22,8 @@ if (!$_POST) {
 			$_POST["fecha_comunicacion"] = "NULL";
 		}
 		InsertaOferta($_POST);
-		include "../views/insertado_exito.php";
+		$ref_volver = "ctrl_admin";
+		$accion = "añadido";
+		include VIEW_PATH."exito.php";
 	}
 }

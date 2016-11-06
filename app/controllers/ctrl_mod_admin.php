@@ -1,8 +1,8 @@
 <?php
-include "../models/filtrado.php";
-include_once "../models/modelo.php";
-include_once "../helpers/helper.php";
-$datos = DatosUnaOferta($_POST["id"]);
+include HELP_PATH."filtrado.php";
+include MODEL_PATH."modelo.php";
+include HELP_PATH."helper.php";
+$datos = DatosUnaOferta($_GET["id"]);
 $listaprovincias = ListaProvincias();
 $estados = array(
 	"P" => "Pendiente de iniciar selección",
@@ -10,11 +10,11 @@ $estados = array(
 	"S" => "Seleccionado candidato",
 	"C" => "Cancelada");
 if (!isset($_POST["modificar2"])) {
-	include "../views/view_modificar.php";
+	include VIEW_PATH."view_mod_admin.php";
 } else {
 	$errores = Errores();
 	if (in_array(true, $errores)) { // Si el array contiene algún valor true, es que hay algún error
-		include "../views/view_modificar.php";
+		include VIEW_PATH."view_mod_admin.php";
 	} else {
 		if (!isset($_POST["estado"])) {
 			$_POST["estado"] = "";
@@ -22,8 +22,9 @@ if (!isset($_POST["modificar2"])) {
 		if (empty(trim($_POST["fecha_comunicacion"]))) {
 			$_POST["fecha_comunicacion"] = "NULL";
 		}
-		//echo "<pre>"; print_r($_POST); echo "</pre>";
 		ModificaOferta($_POST);
-		include "../controllers/ctr_admin.php";
+		$accion = "modificado";
+		$ref_volver = "ctrl_admin";
+		include VIEW_PATH."exito.php";
 	}
 }

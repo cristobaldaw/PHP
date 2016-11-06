@@ -7,9 +7,17 @@ function ValorPost($nombreCampo, $valorPorDefecto = '') {
 		return $valorPorDefecto;
 }
 
+function ValorGet($nombreCampo, $valorPorDefecto = '') {
+	if (isset($_GET[$nombreCampo]))
+		return $_GET[$nombreCampo];
+	else
+		return $valorPorDefecto;
+}
+
 function CreaSelect($name, $opciones, $valorDefecto = '')
 {
 	$html="\n".'<select name="'.$name.'" class="custom-select">';
+	$html.="\n\t".'<option value="">- Seleccione -</option>';
 	foreach($opciones as $value=>$text)
 	{
 		if ($value==$valorDefecto)
@@ -46,26 +54,52 @@ function EstaVacio($valor) {
 	}
 }
 
-function Paginacion($total_registros, $tamano_pagina, $total_paginas, $pagina, $ctr) {
+function Paginacion($total_registros, $tamano_pagina, $total_paginas, $pagina, $ctrl) {
 	if ($total_registros > $tamano_pagina) { // Si el total de ofertas es menor que el tamaño de la página, no hay paginación ?>
 		<div class="text-md-center">
 			<ul class="pagination"><?php
 				if ($pagina != 1) { // Si estoy en la primera página, no me deja retroceder más ?>
-					<li><a href="<?=$ctr?>.php?pagina=1">&lt;&lt;</a></li>
-					<li><a href="<?=$ctr?>.php?pagina=<?=($pagina-1)?>">&lt;</a></li> <?php
+					<li><a href="?ctrl=<?=$ctrl?>&pagina=1">&lt;&lt;</a></li>
+					<li><a href="?ctrl=<?=$ctrl?>&pagina=<?=($pagina-1)?>">&lt;</a></li> <?php 
 				} 
 				if ($total_paginas > 1) {
 					for ($i = 1 ; $i <= $total_paginas; $i++) {
 						if ($pagina == $i) { ?>
 							<li><a class="active" href=""><?=$pagina?></a></li>	<?php
 						} else { ?>
-							<li><a href="<?=$ctr?>.php?pagina=<?=$i?>"><?=$i?></a></li> <?php 
+							<li><a href="?ctrl=<?=$ctrl?>&pagina=<?=$i?>"><?=$i?></a></li> <?php 
 						}
 					}
 				}
 				if ($total_paginas != $pagina) { // Si estoy en la última página, no me deja avanzar más ?>
-					<li><a href="<?=$ctr?>.php?pagina=<?=($pagina+1)?>">&gt;</a></li>
-					<li><a href="<?=$ctr?>.php?pagina=<?=$total_paginas?>">&gt;&gt;</a></li> <?php
+					<li><a href="?ctrl=<?=$ctrl?>&pagina=<?=($pagina+1)?>">&gt;</a></li>
+					<li><a href="?ctrl=<?=$ctrl?>&pagina=<?=$total_paginas?>">&gt;&gt;</a></li> <?php 
+				} ?>
+			</ul>
+		</div> <?php
+	}
+}
+
+function PaginacionBusqueda($total_registros, $tamano_pagina, $total_paginas, $pagina, $ctrl, $campo, $busqueda) {
+	if ($total_registros > $tamano_pagina) { // Si el total de ofertas es menor que el tamaño de la página, no hay paginación ?>
+		<div class="text-md-center">
+			<ul class="pagination"><?php
+				if ($pagina != 1) { // Si estoy en la primera página, no me deja retroceder más ?>
+					<li><a href="?ctrl=<?=$ctrl?>&campo=<?=$campo?>&busqueda=<?=$busqueda?>&pagina=1">&lt;&lt;</a></li>
+					<li><a href="?ctrl=<?=$ctrl?>&campo=<?=$campo?>&busqueda=<?=$busqueda?>&pagina=<?=($pagina-1)?>">&lt;</a></li> <?php 
+				} 
+				if ($total_paginas > 1) {
+					for ($i = 1 ; $i <= $total_paginas; $i++) {
+						if ($pagina == $i) { ?>
+							<li><a class="active" href=""><?=$pagina?></a></li>	<?php
+						} else { ?>
+							<li><a href="?ctrl=<?=$ctrl?>&campo=<?=$campo?>&busqueda=<?=$busqueda?>&pagina=<?=$i?>"><?=$i?></a></li> <?php 
+						}
+					}
+				}
+				if ($total_paginas != $pagina) { // Si estoy en la última página, no me deja avanzar más ?>
+					<li><a href="?ctrl=<?=$ctrl?>&campo=<?=$campo?>&busqueda=<?=$busqueda?>&pagina=<?=($pagina+1)?>">&gt;</a></li>
+					<li><a href="?ctrl=<?=$ctrl?>&campo=<?=$campo?>&busqueda=<?=$busqueda?>&pagina=<?=$total_paginas?>">&gt;&gt;</a></li> <?php 
 				} ?>
 			</ul>
 		</div> <?php
