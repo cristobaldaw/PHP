@@ -1,8 +1,33 @@
 <div class="container">
-	<form method="post">
-		<ul>
-			<li><a href="?ctrl=ctrl_admin">Administrador</a></li>
-			<li><a href="?ctrl=ctrl_psico">Psicólogo</a></li>
-		</ul>
-	</form>
+	<div class="card card-formulario col-md-6 offset-md-3" id="card_login">
+		<?php
+		if (!empty($errores)) { ?>
+			<div class="alert alert-danger col-md-8 offset-md-2">
+				<ul> <?php
+					foreach ($errores as $error) { ?>
+						<li><?=$error["error"]?></li> <?php
+					} ?>
+				</ul>
+			</div> <?php
+		} ?>
+		<form method="post">
+			<div class="row">
+				<div class="form-group col-md-8 offset-md-2">
+					<label for="usuario">Usuario</label>
+					<input type="text" name="usuario" class="form-control" value="<?=ValorPost('usuario')?>">
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-8 offset-md-2">
+					<label for="pass">Contraseña</label>
+					<input type="password" name="pass" class="form-control" value="<?=ValorPost('pass')?>">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-8 offset-md-2 text-md-right">
+					<button type="submit" class="btn btn-primary">Entrar</button>
+				</div>
+			</div>
+		</form>
+	</div>
 </div>

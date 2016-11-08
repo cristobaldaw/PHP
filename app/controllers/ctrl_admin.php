@@ -1,17 +1,21 @@
 <?php
-include MODEL_PATH."modelo.php";
-include HELP_PATH."helper.php";
-// Paginación
-$tamano_pagina = 10;
-if (!isset($_GET["pagina"])) {
-    $inicio = 0;
-    $pagina = 1;
+if ($_SESSION["tipo_usuario"] == "Administrador") {
+	include_once MODEL_PATH."modelo.php";
+	include_once HELP_PATH."helper.php";
+	// Paginación
+	$tamano_pagina = 10;
+	if (!isset($_GET["pagina"])) {
+	    $inicio = 0;
+	    $pagina = 1;
+	} else {
+		$pagina = $_GET["pagina"];
+	    $inicio = ($pagina - 1) * $tamano_pagina;
+	}
+		
+	$total_ofertas = TotalOfertas();
+	$total_paginas = ceil($total_ofertas / $tamano_pagina);
+	$lista = ListaOfertasPaginacion($inicio, $tamano_pagina);
+	include VIEW_PATH."view_admin.php";
 } else {
-	$pagina = $_GET["pagina"];
-    $inicio = ($pagina - 1) * $tamano_pagina;
+	header("location: index.php");
 }
-	
-$total_ofertas = TotalOfertas();
-$total_paginas = ceil($total_ofertas / $tamano_pagina);
-$lista = ListaOfertasPaginacion($inicio, $tamano_pagina);
-include VIEW_PATH."view_admin.php";

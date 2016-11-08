@@ -78,6 +78,28 @@ function DatosUnaOferta($id) {
 	return $datos;
 }
 
+function DatosUsuario($usuario) {
+	$conex = BD::GetInstance();
+	$conex->Consulta("select * from tbl_usuarios where usuario = '$usuario'");
+	while ($rs = $conex->LeeRegistro()) {
+		$datos[] = $rs;
+	}
+	return $datos;
+}
+
+function ExisteUsuario($usuario) {
+	$conex = BD::GetInstance();
+	$conex->Consulta("select count(*) as total from tbl_usuarios where usuario = '$usuario'");
+	while ($rs = $conex->LeeRegistro()) {
+		$total = $rs;
+	}
+	if ($total["total"] > 0) {
+		return true;
+	} else {
+ 		return false;
+	}
+}
+
 function TextoEstado($estado) {
 	$texto = "";
 	switch ($estado) {
