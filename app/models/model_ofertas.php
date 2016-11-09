@@ -1,5 +1,5 @@
 <?php
-include "bd_singleton.php";
+include_once "bd_singleton.php";
 
 function InsertaOferta($campos) {
 	$conex = BD::getInstance();
@@ -56,16 +56,85 @@ function BuscaOfertaPaginacion($campo, $busqueda, $inicio, $tamano_pagina) {
 	}
 }
 
-function TotalResultados($campo, $busqueda) {
+function SwitchCriterio($criterio) {
+	switch ($criterio) {
+		case "may":
+			$crit = ">";
+			break;
+		case "men":
+			$crit = "<";
+			break;
+		case "cont":
+			$crit = "like";
+			break;
+		case "=":
+			$crit = "=";
+			break;
+	}
+	return $crit;
+}
+
+function Buscar($campos, $inicio, $tamano_pagina) {
 	$conex = BD::getInstance();
-	$conex->Consulta("select count(*) as total from tbl_ofertas where lower($campo) like ('$busqueda%')");
+	if(!empty(trim($campos["descripcion"]))) {
+		if ($campos["criterio1"] == "cont") {
+			$campos["descripcion"] = "%".$campos["descripcion"]."%";
+		}
+		$query[] = "descripcion " .  SwitchCriterio($campos['criterio1']) . " '" . $campos["descripcion"] . "'";
+	}
+	if(!empty(trim($campos["fecha_creacion"]))) {
+		$campos["fecha_creacion"] = "STR_TO_DATE('" . $campos["fecha_creacion"] . "', '%d/%m/%Y')";
+		if ($campos["criterio2"] == "cont") {
+			$campos["fecha_creacion"] = "%".$campos["fecha_creacion"]."%";
+		}
+		$query[] = "fecha_creacion " .  SwitchCriterio($campos['criterio2']) . " " . $campos["fecha_creacion"] ;
+	}
+	if(!empty(trim($campos["persona_contacto"]))) {
+		if ($campos["criterio3"] == "cont") {
+			$campos["persona_contacto"] = "%".$campos["persona_contacto"]."%";
+		}
+		$query[] = "persona_contacto " .  SwitchCriterio($campos['criterio3']) . " '" . $campos["persona_contacto"] . "'";
+	}
+	$sql = "select *, DATE_FORMAT(fecha_creacion,'%d/%m/%Y') as fecha from tbl_ofertas where " . implode(" and ", $query) . "order by fecha_creacion desc limit $inicio, $tamano_pagina";
+	$conex->Consulta($sql);
+	while ($rs = $conex->LeeRegistro()) {
+		$resultados[] = $rs;
+	}
+	if (!empty($resultados)) {
+		return $resultados;
+	}
+}
+
+function TotalResultados($campos) {
+	$conex = BD::getInstance();
+	if(!empty(trim($campos["descripcion"]))) {
+		if ($campos["criterio1"] == "cont") {
+			$campos["descripcion"] = "%".$campos["descripcion"]."%";
+		}
+		$query[] = "descripcion " .  SwitchCriterio($campos['criterio1']) . " '" . $campos["descripcion"] . "'";
+	}
+	if(!empty(trim($campos["fecha_creacion"]))) {
+		$campos["fecha_creacion"] = "STR_TO_DATE('" . $campos["fecha_creacion"] . "', '%d/%m/%Y')";
+		if ($campos["criterio2"] == "cont") {
+			$campos["fecha_creacion"] = "%".$campos["fecha_creacion"]."%";
+		}
+		$query[] = "fecha_creacion " .  SwitchCriterio($campos['criterio2']) . " " . $campos["fecha_creacion"] ;
+	}
+	if(!empty(trim($campos["persona_contacto"]))) {
+		if ($campos["criterio3"] == "cont") {
+			$campos["persona_contacto"] = "%".$campos["persona_contacto"]."%";
+		}
+		$query[] = "persona_contacto " .  SwitchCriterio($campos['criterio3']) . " '" . $campos["persona_contacto"] . "'";
+	}
+	$sql = "select count(*) as total from tbl_ofertas where " . implode(" and ", $query);
+	$conex->Consulta($sql);
 	while ($rs = $conex->LeeRegistro()) {
 		$total = $rs;
 	}
-	if (!empty($total)) {
-		return $total["total"];
-	} else {
+	if (empty($total)) {
 		return 0;
+	} else {
+		return $total["total"];
 	}
 }
 
@@ -76,28 +145,6 @@ function DatosUnaOferta($id) {
 		$datos[] = $rs;
 	}
 	return $datos;
-}
-
-function DatosUsuario($usuario) {
-	$conex = BD::GetInstance();
-	$conex->Consulta("select * from tbl_usuarios where usuario = '$usuario'");
-	while ($rs = $conex->LeeRegistro()) {
-		$datos[] = $rs;
-	}
-	return $datos;
-}
-
-function ExisteUsuario($usuario) {
-	$conex = BD::GetInstance();
-	$conex->Consulta("select count(*) as total from tbl_usuarios where usuario = '$usuario'");
-	while ($rs = $conex->LeeRegistro()) {
-		$total = $rs;
-	}
-	if ($total["total"] > 0) {
-		return true;
-	} else {
- 		return false;
-	}
 }
 
 function TextoEstado($estado) {
@@ -117,24 +164,4 @@ function TextoEstado($estado) {
 			break;
 	}
 	return $texto;
-}
-
-function NombreProvincia($cod) {
-	$conex = BD::getInstance();
-	$conex->Consulta("select nombre from tbl_provincias where cod = '$cod'");
-	while ($rs = $conex->LeeRegistro()) {
-		$nombre = $rs;
-	}
-	if (!empty($nombre)) {
-		return $nombre["nombre"];
-	}
-}
-
-function ListaProvincias() {
-	$conex = BD::getInstance();
-	$conex->Consulta("select * from tbl_provincias order by nombre");
-	while ($rs = $conex->LeeRegistro()) {
-		$provincias[$rs["cod"]] = $rs["nombre"];
-	}
-	return $provincias;
 }

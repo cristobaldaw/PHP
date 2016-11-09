@@ -1,6 +1,7 @@
 <?php
 if ($_SESSION["tipo_usuario"] == "Psicólogo") {
-	include MODEL_PATH."modelo.php";
+	include MODEL_PATH."model_ofertas.php";
+	include MODEL_PATH."model_provincias.php";
 	include HELP_PATH."helper.php";
 	$datos = DatosUnaOferta($_GET["id"]);
 	$estados = array(

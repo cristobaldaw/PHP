@@ -1,6 +1,7 @@
 <?php
 if ($_SESSION["tipo_usuario"] == "Administrador") {
-	include_once MODEL_PATH."modelo.php";
+	include_once MODEL_PATH."model_ofertas.php";
+	include_once MODEL_PATH."model_provincias.php";
 	include_once HELP_PATH."helper.php";
 	// Paginación
 	$tamano_pagina = 10;

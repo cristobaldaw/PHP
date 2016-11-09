@@ -1,6 +1,7 @@
 <?php
 if ($_SESSION["tipo_usuario"] == "Administrador") {
-	include MODEL_PATH."modelo.php";
+	include MODEL_PATH."model_ofertas.php";
+	include MODEL_PATH."model_provincias.php";
 	if (isset($_POST["conf_eliminar"])) {
 		EliminaOferta($_GET["id"]);
 		$accion = "eliminado";

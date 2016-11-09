@@ -5,18 +5,19 @@
 		<p class="lead">
 		<a href="?ctrl=ctrl_anadir" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Añadir nueva oferta</a>
 		<a href="?ctrl=ctrl_buscar" class="btn btn-primary"><i class="fa fa-search" aria-hidden="true"></i> Buscar</a>
+		<a href="?ctrl=ctrl_usuarios" class="btn btn-secondary"><i class="fa fa-user" aria-hidden="true"></i> Gestión de usuarios</a>
 		</p>
 	</div>
 	<table class="table table-bordered table-hover">
 		<thead class="table-inverse">
 			<tr>
-				<th>Fecha de creación</th>
-				<th>Descripción</th>
-				<th>Persona de contacto</th>
-				<th>Teléfono de contacto</th>
-				<th>Correo electrónico</th>
-				<th>Provincia</th>
-				<th>Opciones</th>
+				<th class="text-md-center">Fecha de creación</th>
+				<th class="text-md-center">Descripción</th>
+				<th class="text-md-center">Persona de contacto</th>
+				<th class="text-md-center">Teléfono de contacto</th>
+				<th class="text-md-center">Correo electrónico</th>
+				<th class="text-md-center">Provincia</th>
+				<th class="text-md-center">Opciones</th>
 			</tr>
 		</thead>
 		<tbody> <?php

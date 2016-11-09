@@ -9,13 +9,13 @@
 	<table class="table table-bordered table-hover">
 		<thead class="table-inverse">
 			<tr>
-				<th>Fecha de creación</th>
-				<th>Descripción</th>
-				<th>Persona de contacto</th>
-				<th>Teléfono de contacto</th>
-				<th>Correo electrónico</th>
-				<th>Provincia</th>
-				<th>Opciones</th>
+				<th class="text-md-center">Fecha de creación</th>
+				<th class="text-md-center">Descripción</th>
+				<th class="text-md-center">Persona de contacto</th>
+				<th class="text-md-center">Teléfono de contacto</th>
+				<th class="text-md-center">Correo electrónico</th>
+				<th class="text-md-center">Provincia</th>
+				<th class="text-md-center">Opciones</th>
 			</tr>
 		</thead>
 		<tbody> <?php

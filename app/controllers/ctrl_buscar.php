@@ -1,6 +1,7 @@
 <?php
 if ($_SESSION["tipo_usuario"] == "Administrador" || $_SESSION["tipo_usuario"] == "Psicólogo") {
-	include MODEL_PATH."modelo.php";
+	include MODEL_PATH."model_ofertas.php";
+	include MODEL_PATH."model_provincias.php";
 	include HELP_PATH."helper.php";
 	include HELP_PATH."filtrado_buscar.php";
 
@@ -14,23 +15,19 @@ if ($_SESSION["tipo_usuario"] == "Administrador" || $_SESSION["tipo_usuario"] ==
 	}
 
 	$campos = array(
-		"descripcion" => "Descripción",
-		"persona_contacto" => "Persona de contacto",
-		"email" => "Correo electrónico");
+		"=" => "Igual",
+		"cont" => "Contiene",
+		"may" => "Mayor",
+		"men" => "Menor");
 
-	if (!isset($_GET["campo"]) && !isset($_GET["busqueda"])) { // Si el array contiene algún valor true, es que hay algún error
+	if (!isset($_GET["descripcion"])) {
 		$total_resultados = "";
 		include VIEW_PATH."view_buscar.php";
 	} else {
-	if (in_array(true, $errores)) {
-			$total_resultados = "";
-			include VIEW_PATH."view_buscar.php";
-		} else {
-			$total_resultados = TotalResultados($_GET["campo"], $_GET["busqueda"]);
-			$total_paginas = ceil($total_resultados / $tamano_pagina);
-			$resultados = BuscaOfertaPaginacion($_GET["campo"], $_GET["busqueda"], $inicio, $tamano_pagina);
-			include VIEW_PATH."view_buscar.php";
-		}
+		$resultados = Buscar($_GET, $inicio, $tamano_pagina);
+		$total_resultados = TotalResultados($_GET);
+		$total_paginas = ceil($total_resultados / $tamano_pagina);
+		include VIEW_PATH."view_buscar.php";
 	}
 } else {
 	header("location: index.php");

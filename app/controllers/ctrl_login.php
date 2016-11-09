@@ -4,7 +4,7 @@ if (isset($_SESSION["tipo_usuario"]) && $_SESSION["tipo_usuario"] == "Administra
 } elseif (isset($_SESSION["tipo_usuario"]) && $_SESSION["tipo_usuario"] == "Psicólogo") {
 	header("location: ?ctrl=ctrl_psico");
 } else {
-	include MODEL_PATH."modelo.php";
+	include MODEL_PATH."model_usuarios.php";
 	include HELP_PATH."helper.php";
 	$errores = array();
 	if (!$_POST) {

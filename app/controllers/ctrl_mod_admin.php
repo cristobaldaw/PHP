@@ -1,7 +1,8 @@
 <?php
 if ($_SESSION["tipo_usuario"] == "Administrador") {
 	include HELP_PATH."filtrado.php";
-	include MODEL_PATH."modelo.php";
+	include MODEL_PATH."model_ofertas.php";
+	include MODEL_PATH."model_provincias.php";
 	include HELP_PATH."helper.php";
 	$datos = DatosUnaOferta($_GET["id"]);
 	$listaprovincias = ListaProvincias();
