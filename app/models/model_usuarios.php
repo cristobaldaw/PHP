@@ -10,6 +10,24 @@ function DatosUsuario($usuario) {
 	return $datos;
 }
 
+function DatosUsuarioByID($id) {
+	$conex = BD::GetInstance();
+	$conex->Consulta("select * from tbl_usuarios where id = '$id'");
+	while ($rs = $conex->LeeRegistro()) {
+		$datos[] = $rs;
+	}
+	return $datos;
+}
+
+function TotalUsuarios() {
+	$conex = BD::getInstance();
+	$conex->Consulta("select count(*) as total from tbl_usuarios");
+	while ($rs = $conex->LeeRegistro()) {
+		$total = $rs;
+	}
+	return $total["total"];
+}
+
 function ExisteUsuario($usuario) {
 	$conex = BD::GetInstance();
 	$conex->Consulta("select count(*) as total from tbl_usuarios where usuario = '$usuario'");
@@ -35,9 +53,15 @@ function EliminaUsuario($id) {
 	$conex->Ejecutar($sql);
 }
 
-function ListaUsuarios() {
+function ModificaUsuario($campos) {
+	$conex = BD::GetInstance();
+	$sql = "update tbl_usuarios set usuario = '$campos[usuario]', pass = '$campos[pass]', tipo = '$campos[tipo]' where id = '$campos[id]'";
+	$conex->Ejecutar($sql);
+}
+
+function ListaUsuariosPaginacion($inicio, $tamano_pagina) {
 	$conex = BD::getInstance();
-	$conex->Consulta("select * from tbl_usuarios");
+	$conex->Consulta("select * from tbl_usuarios limit $inicio, $tamano_pagina");
 	while ($rs = $conex->LeeRegistro()) {
 		$lista[] = $rs;
 	}
@@ -55,4 +79,11 @@ function TipoUsuario($tipo) {
 			return "Psicólogo";
 			break;
 	}
+}
+
+function ConfirmPassOK($pass1, $pass2) {
+	if ($pass1 == $pass2)
+		return true;
+	else
+		return false;
 }

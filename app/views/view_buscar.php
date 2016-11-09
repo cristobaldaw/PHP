@@ -1,7 +1,7 @@
 <div class="container">
 	<div class="jumbotron jumbotron-azul">
 		<div class="text-md-left">
-			<a href="#" class="btn btn-primary btn_volver" title="Volver"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i></a>
+			<a href="?ctrl=<?=$ref_volver?>" class="btn btn-primary btn_volver" title="Volver"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i></a>
 		</div>
 		<div class="text-md-center">
 			<?php

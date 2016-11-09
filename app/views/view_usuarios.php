@@ -4,7 +4,7 @@
 			<a class="list-group-item disabled text-md-center list-inverse">
 			Opciones
 			</a>
-			<a href="" class="list-group-item" data-toggle="modal" data-target="#anadir">Añadir usuario</a>
+			<a href="?ctrl=ctrl_anadir_usuarios" class="list-group-item">Añadir usuario</a>
 		</div>
 	</div>
 	<div class="col-md-8">
@@ -24,11 +24,14 @@
 					<td><?=$usuario['usuario']?></td>
 					<td><?=$usuario['pass']?></td>
 					<td><?=TipoUsuario($usuario['tipo'])?></td>
-					<td><button type="button" class="btn btn-danger btn-sm" title="Eliminar" data-toggle="modal" data-target="#eliminar" data-usuario="<?=$usuario['usuario']?>" data-pass="<?=$usuario['pass']?>" data-tipo="<?=TipoUsuario($usuario['tipo'])?>" data-id="<?=$usuario['id']?>"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
+					<td><a href="?ctrl=ctrl_eliminar_usuarios&id=<?=$usuario['id']?>" class="btn btn-danger btn-sm" title="Eliminar"><i class="fa fa-trash" aria-hidden="true"></i></a>
+					<a href="?ctrl=ctrl_modificar_usuario&id=<?=$usuario['id']?>" class="btn btn-info btn-sm" title="Modificar"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+					</td>
 				</tr> <?php
 			} ?>
 			</tbody>
 		</table>
+		<?= Paginacion($total_usuarios, $tamano_pagina, $total_paginas, $pagina, "ctrl_usuarios"); ?>
 	</div>
 </div>
 
@@ -59,6 +62,12 @@
 					</div>
 					<div class="row">
 						<div class="form-group col-md-8 offset-md-2">
+							<label for="conf_pass">Confirmar contraseña</label>
+							<input type="password" class="form-control" name="conf_pass">
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group col-md-8 offset-md-2">
 							<label for="tipo">Tipo de usuario</label><br>
 							<?= CreaRadio("tipo", $tipos) ?>
 						</div>
@@ -72,46 +81,3 @@
 		</div>
 	</div>
 </div>
-
-
-<!-- Modal eliminar -->
-<div class="modal fade" id="eliminar" tabindex="-1" role="dialog" aria-labelledby="eliminar">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title text-md-center">¿Desea eliminar este usuario?</h4>
-			</div>
-			<div class="modal-body">
-				<form method="post">
-					<div class="form-group text-md-center">
-						<h4 class="txt_usuario"></h4>
-						<h4 class="txt_pass"></h4>
-						<h4 class="txt_tipo"></h4>
-						<input type="hidden" class="hidden_id" name="hidden_id">
-					</div>
-					<div class="text-md-right">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-						<button type="submit" class="btn btn-primary" name="btn_eliminar">Eliminar</button>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-</div>
-
-
-<script>
-	$('#eliminar').on('show.bs.modal', function (event) {
-  var button = $(event.relatedTarget) // Button that triggered the modal
-  var usuario = button.data('usuario') // Extract info from data-* attributes
-  var pass = button.data('pass')
-  var tipo = button.data('tipo')
-  var id = button.data('id')
-  var modal = $(this)
-  modal.find('.txt_usuario').html("<strong>Usuario: </strong>" + usuario)
-  modal.find('.txt_pass').html("<strong>Contraseña: </strong>" + pass)
-  modal.find('.txt_tipo').html("<strong>Tipo de usuario: </strong>" + tipo)
-  modal.find('.hidden_id').val(id)
-})
-</script>

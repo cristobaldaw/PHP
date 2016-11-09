@@ -1,5 +1,10 @@
 <?php
 if ($_SESSION["tipo_usuario"] == "Administrador" || $_SESSION["tipo_usuario"] == "Psicólogo") {
+	if ($_SESSION["tipo_usuario"] == "Administrador")
+		$ref_volver = "ctrl_admin";
+	else
+		$ref_volver = "ctrl_psico";
+	
 	include MODEL_PATH."model_ofertas.php";
 	include MODEL_PATH."model_provincias.php";
 	include HELP_PATH."helper.php";

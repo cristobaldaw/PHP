@@ -22,8 +22,8 @@
 				<h4 class="modal-title text-md-center">¿Estás seguro de que desea cerrar la sesión?</h4>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
 				<a href="?ctrl=logout" class="btn btn-primary">Cerrar sesión</a>
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
 			</div>
 		</div>
 	</div>

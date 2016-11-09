@@ -1,9 +1,11 @@
 <div class="container">
-	<div class="col-md-8 offset-md-2">
-		<h1 class="text-md-center">Modificar oferta</h1>
-		<hr>		
+	<div class="col-md-8 offset-md-2">		
 		<div class="card card-outline-secondary card-formulario">
 			<div class="card-block">
+				<div class="text-md-center">
+					<h2>Modificar oferta</h2>
+					<hr>
+				</div>
 				<form method="post">
 					<?php
 					if (!empty($errores)) { ?>

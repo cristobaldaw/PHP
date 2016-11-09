@@ -6,3 +6,11 @@ function DatosRandom() {
 		$conex->Ejecutar($sql);
 	}
 }
+
+function UsuariosRandom() {
+	$conex = BD::getInstance();
+	for ($i = 1; $i <= 50; $i++) {
+		$sql = "insert into tbl_usuarios (usuario, pass, tipo) values ('usuario " . $i . "', 'pass" . $i . "', 'tipo" . "')";
+		$conex->Ejecutar($sql);
+	}
+}

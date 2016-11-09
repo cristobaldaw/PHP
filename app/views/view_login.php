@@ -24,8 +24,8 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-8 offset-md-2 text-md-right">
-					<button type="submit" class="btn btn-primary">Entrar</button>
+				<div class="col-md-8 offset-md-2">
+					<button type="submit" class="btn btn-primary btn-grande">Entrar</button>
 				</div>
 			</div>
 		</form>

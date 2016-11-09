@@ -1,9 +1,11 @@
 <div class="container">
-	<div class="col-md-8 offset-md-2">
-		<h1 class="text-md-center">Añadir una nueva oferta</h1>
-		<hr>		
+	<div class="col-md-8 offset-md-2">		
 		<div class="card card-outline-secondary card-formulario">
 			<div class="card-block">
+				<div class="text-md-center">
+					<h2>Añadir nueva oferta</h2>
+					<hr>
+				</div>
 				<form method="post">
 					<?php
 					if (!empty($errores)) { ?>
@@ -94,8 +96,8 @@
 						</div>
 					</div>
 					<ul class="list-inline float-md-right">
-						<li class="list-inline-item"><a href="?ctrl=ctrl_admin" class="btn btn-secondary">Cancelar</a></li>
 						<li class="list-inline-item"><button type="submit" class="btn btn-primary">Añadir</button></li>
+						<li class="list-inline-item"><a href="?ctrl=ctrl_admin" class="btn btn-secondary">Cancelar</a></li>
 					</ul>
 				</form>
 			</div>

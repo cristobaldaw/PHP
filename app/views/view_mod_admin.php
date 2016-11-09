@@ -1,9 +1,11 @@
 <div class="container">
-	<div class="col-md-8 offset-md-2">
-		<h1 class="text-md-center">Modificar oferta</h1>
-		<hr>		
+	<div class="col-md-8 offset-md-2">		
 		<div class="card card-outline-secondary card-formulario">
 			<div class="card-block">
+				<div class="text-md-center">
+					<h2>Modificar oferta</h2>
+					<hr>
+				</div>
 				<form method="post">
 					<?php
 					if (!empty($errores)) { ?>
@@ -95,10 +97,10 @@
 							</div>
 						</div> <?php
 					} ?>
-					<ul class="list-inline float-md-right">
-						<li class="list-inline-item"><a href="?ctrl=ctrl_admin" class="btn btn-secondary">Cancelar</a></li>
-						<li class="list-inline-item"><button type="submit" name="modificar2" class="btn btn-primary">Modificar</button></li>
-					</ul>
+					<div class="text-md-right">
+						<button type="submit" name="modificar2" class="btn btn-primary">Modificar</button>
+						<a href="?ctrl=ctrl_admin" class="btn btn-secondary">Cancelar</a>
+					</div>
 					<input type="hidden" name="id" value="<?=$_GET['id']?>"> <!-- Recibo el id desde la URL y lo mando al controlador modificar -->
 				</form>
 			</div>
