@@ -1,5 +1,6 @@
 <?php
-function Errores() {
+
+function FiltradoOfertas() {
 	$errores = array();
 	if (isset($_POST["descripcion"]) && EstaVacio($_POST["descripcion"])) {
 		array_push($errores, array("bool" => true, "error" => "Introduzca una descripción.")); // Se añade a la última posición un valor booleano y el texto del error
@@ -14,7 +15,7 @@ function Errores() {
  	}
 
  	if (isset($_POST["telefono_contacto"]) && !is_numeric(str_replace(" ", "", $_POST["telefono_contacto"]))) { // El número de teléfono acepta el simbolo "+" del prefijo y espacios en blanco
- 		array_push($errores, array("bool" => true, "error" => "Introduzca un número de teléfono válido."));
+ 		array_push($errores, array("bool" => true, "error" => "Introduzca un teléfono de contacto válido."));
  	}
 
  	if (isset($_POST["codigo_postal"]) && !EstaVacio($_POST["codigo_postal"])) { // Si el código postal no está vacío...
@@ -41,4 +42,40 @@ function Errores() {
 		}
 	}
 	return $errores;
+}
+
+function FiltradoBuscar() {
+	$errores = array();
+	if (EstaVacio($_GET["descripcion"]) && EstaVacio($_GET["fecha_creacion"]) && EstaVacio($_GET["persona_contacto"])) {
+		array_push($errores, array("bool" => true, "error" => "Introduzca al menos un campo para buscar."));
+	}
+	return $errores;
+}
+
+function FiltradoUsuarios() {
+	$errores = array();
+	if (EstaVacio($_POST['usuario'])) {
+		array_push($errores, array("bool" => true, "error" => "Introduzca un nombre de usuario."));
+	}
+	if (EstaVacio($_POST["pass"]) || EstaVacio($_POST["conf_pass"])) {
+		array_push($errores, array("bool" => true, "error" => "Introduzca una contraseña."));
+	}
+	if (!EstaVacio($_POST["pass"]) && !EstaVacio($_POST["conf_pass"]) and !ConfirmPassOK($_POST["pass"], $_POST["conf_pass"])) {
+		array_push($errores, array("bool" => true, "error" => "Las contraseñas no coinciden."));
+	}
+	if (!isset($_POST["tipo"])) {
+		array_push($errores, array("bool" => true, "error" => "Introduzca un tipo de usuario."));
+	}
+	if (ExisteUsuario($_POST["usuario"])) {
+		array_push($errores, array("bool" => true, "error" => "El nombre de usuario ya existe."));
+	}
+
+	return $errores;
+}
+
+function EstaVacio($valor) {
+	if (empty(trim($valor)))
+		return true;
+	else
+		return false;
 }

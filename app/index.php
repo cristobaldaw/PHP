@@ -31,8 +31,7 @@ include TEMPLATE_PATH."header.php"; ?>
 	    include($file);
 	} else {
 	    include(VIEW_PATH.'error404.php');
-	}
-	?>
+	} ?>
 </div>
 </body>
 </html>

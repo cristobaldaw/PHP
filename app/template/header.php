@@ -1,4 +1,4 @@
-<nav class="navbar navbar-dark bg-inverse">
+<nav class="navbar navbar-dark" id="header">
 	<a class="navbar-brand" href="index.php">JobYesterday</a>
 		<?php
 		if (isset($_SESSION['tipo_usuario'])) { ?>
@@ -11,17 +11,17 @@
 		} ?>
 </nav>
 
-<!-- Modal -->
+<!-- Modal cerrar sesión -->
 <div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="logout" aria-hidden="true">
 	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-body">
+		<div class="modal-content text-md-center">
+			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
-				<h4 class="modal-title text-md-center">¿Estás seguro de que desea cerrar la sesión?</h4>
+				<h4 class="modal-title">¿Estás seguro de que desea cerrar sesión?</h4>
 			</div>
-			<div class="modal-footer">
+			<div class="modal-body">
 				<a href="?ctrl=logout" class="btn btn-primary">Cerrar sesión</a>
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
 			</div>

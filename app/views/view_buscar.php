@@ -1,13 +1,15 @@
 <div class="container">
-	<div class="jumbotron jumbotron-azul">
+	<div class="jumbotron jumbotron-gray">
 		<div class="text-md-left">
-			<a href="?ctrl=<?=$ref_volver?>" class="btn btn-primary btn_volver" title="Volver"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i></a>
+			<a href="?ctrl=<?=$ref_volver?>" class="btn btn-secondary" id="btn_volver_buscar" title="Volver"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i></a>
 		</div>
 		<div class="text-md-center">
 			<?php
-			if (isset($resultados) && empty($resultados)) { ?>
+			if (!empty($errores)) { ?>
 				<div class="alert alert-danger col-md-6 offset-md-3">
-					<ul>Introduzca al menos un campo para buscar</ul>
+					<ul>
+						<li>Introduzca al menos un campo para buscar</li>
+					</ul>
 				</div> <?php
 			} ?>
 			<h1 class="display-3">Búsqueda</h1><br>
@@ -47,7 +49,7 @@
 					</div>
 				</div>
 				<div class="row">
-					<br><button type="submit" class="btn btn-primary btn-lg"><i class="fa fa-search" aria-hidden="true"></i> Buscar</button>
+					<br><button type="submit" class="btn btn-primary btn-lg btn-block"><i class="fa fa-search" aria-hidden="true"></i> Buscar</button>
 				</div>
 			</form>
 		</div>

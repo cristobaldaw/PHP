@@ -1,6 +1,10 @@
 <?php
 include_once "bd_singleton.php";
 
+$tipos = array(
+	"A" => "Administrador",
+	"P" => "Psicólogo");
+
 function DatosUsuario($usuario) {
 	$conex = BD::GetInstance();
 	$conex->Consulta("select * from tbl_usuarios where usuario = '$usuario'");

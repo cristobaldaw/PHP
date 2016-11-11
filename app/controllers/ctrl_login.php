@@ -10,7 +10,7 @@ if (isset($_SESSION["tipo_usuario"]) && $_SESSION["tipo_usuario"] == "Administra
 	if (!$_POST) {
 		include VIEW_PATH."view_login.php";
 	} else {
-		if (EstaVacio($_POST["usuario"]) || EstaVacio($_POST["pass"])) { // Si uno de los dos campos está vacío...
+		if (empty(trim($_POST["usuario"])) || empty(trim($_POST["pass"]))) { // Si uno de los dos campos está vacío...
 			array_push($errores, array("bool" => true, "error" => "Introduzca usuario y contraseña."));
 			include VIEW_PATH."view_login.php";
 		} else {
