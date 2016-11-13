@@ -3,7 +3,28 @@
 }
 
 body {
-	background-color: #e6e6e6;
+	background-color: #cccccc;
+}
+
+#body-login {
+    background-image: url("../img/fondo-login.jpg");
+    background-size: 100%;
+}
+
+#header {
+	background-color: #1e1e24;
+}
+
+table {
+    table-layout: fixed;
+}
+td {
+    word-wrap:break-word;
+}
+
+th {
+    text-align: center;
+    background-color: #1e1e24;
 }
 
 textarea {
@@ -12,8 +33,9 @@ textarea {
 
 hr {
 height: 1px;
-color: #000000;
-background-color: #000000;
+color: white;
+opacity: 0.3;
+background-color: white;
 border: none;
 }
 
@@ -22,10 +44,31 @@ tbody {
 	text-align: center;
 }
 
-.card-formulario {
-	background-color: white;
+.jumbotron-gray {
+    background: linear-gradient(141deg, #798086 0%, #2e6171 51%, #798086 75%);
+    color:white;
+    border-radius: 50px;
+    padding: 50px;
 }
 
+.opciones {
+    width: 12%;
+}
+
+#btn_volver_buscar {
+    margin-top: -5%;
+    margin-left: -2%;
+}
+
+#card_login {
+    margin-top: 5%;
+    padding: 2%;
+    border: 2px solid #a1a1a1;    
+    border-radius: 25px;
+    opacity: 0.8;
+}
+
+/*Paginación*/
 ul.pagination {
     display: inline-block;
     padding: 0;
@@ -41,43 +84,17 @@ ul.pagination li a {
     float: left;
     padding: 8px 16px;
     text-decoration: none;
+    border-radius: 20px;
+    margin-left: 1px;
+    margin-right: 1px;
 }
 
 ul.pagination li a.active {
-    background-color: #4CAF50;
+    background-color: #073B39;
     color: white;
+    border-radius: 20px;
 }
 
 ul.pagination li a:hover:not(.active) {
 	background-color: #ddd;
-}
-
-.jumbotron-azul {
-    background: linear-gradient(141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
-    color:white;
-    opacity:0.95;
-}
-
-.opciones {
-    width: 12%;
-}
-
-#form_buscar {
-    margin-left: -1.4%;
-}
-
-.btn_volver {
-    margin-top: -10%;
-    margin-left: -2%;
-}
-
-#card_login {
-    margin-top: 5%;
-    padding: 2%;
-    border: 2px solid #a1a1a1;    
-    border-radius: 25px;
-}
-
-.btn-grande {
-    width: 100%;
 }

@@ -12,11 +12,11 @@
 				</div>
 				<div class="form-group">
 					<label for="pass"><strong>Contraseña</strong></label>
-					<input type="text" name="pass" class="form-control" value="<?=$dato['pass']?>">
+					<input type="password" name="pass" class="form-control" value="<?=$dato['pass']?>">
 				</div>
 				<div class="form-group">
 					<label for="conf_pass"><strong>Confirmar contraseña</strong></label>
-					<input type="password" name="conf_pass" class="form-control">
+					<input type="password" name="conf_pass" class="form-control" value="<?=$dato['pass']?>">
 				</div>
 				<div class="form-group text-md-center">
 					<label for="tipo"><strong>Tipo de usuario</strong></label><br>

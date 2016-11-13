@@ -1,6 +1,18 @@
 <?php
 include_once "bd_singleton.php";
 
+$estados = array(
+		"P" => "Pendiente de iniciar selección",
+		"R" => "Realizando selección",
+		"S" => "Seleccionado candidato",
+		"C" => "Cancelada");
+
+$campos = array(
+		"=" => "Igual",
+		"cont" => "Contiene",
+		"may" => "Mayor",
+		"men" => "Menor");
+
 function InsertaOferta($campos) {
 	$conex = BD::getInstance();
 	$sql = "insert into tbl_ofertas (descripcion, persona_contacto, telefono_contacto, email, direccion, poblacion, codigo_postal, provincia, estado, fecha_comunicacion, psicologo_encargado, candidato_seleccionado, otros_datos_candidato) values ('$campos[descripcion]', '$campos[persona_contacto]', '$campos[telefono_contacto]', '$campos[email]', '$campos[direccion]', '$campos[poblacion]', '$campos[codigo_postal]', '$campos[provincia]', '$campos[estado]', STR_TO_DATE('$campos[fecha_comunicacion]', '%d/%m/%Y'), '$campos[psicologo_encargado]', '$campos[candidato_seleccionado]', '$campos[otros_datos_candidato]')";
@@ -33,9 +45,9 @@ function EliminaOferta($id) {
 	$conex->Ejecutar($sql);
 }
 
-function ModificaOferta($campos) {
+function ModificaOfertaAdmin($id, $campos) {
 	$conex = BD::GetInstance();
-	$sql = "update tbl_ofertas set descripcion = '$campos[descripcion]', persona_contacto = '$campos[persona_contacto]', telefono_contacto = '$campos[telefono_contacto]', email = '$campos[email]', direccion = '$campos[direccion]', poblacion = '$campos[poblacion]', codigo_postal = '$campos[codigo_postal]', provincia = '$campos[provincia]', estado = '$campos[estado]', fecha_comunicacion = STR_TO_DATE('$campos[fecha_comunicacion]', '%d/%m/%Y'), psicologo_encargado = '$campos[psicologo_encargado]', candidato_seleccionado = '$campos[candidato_seleccionado]', otros_datos_candidato = '$campos[otros_datos_candidato]' where id = '$campos[id]'";
+	$sql = "update tbl_ofertas set descripcion = '$campos[descripcion]', persona_contacto = '$campos[persona_contacto]', telefono_contacto = '$campos[telefono_contacto]', email = '$campos[email]', direccion = '$campos[direccion]', poblacion = '$campos[poblacion]', codigo_postal = '$campos[codigo_postal]', provincia = '$campos[provincia]', estado = '$campos[estado]', fecha_comunicacion = STR_TO_DATE('$campos[fecha_comunicacion]', '%d/%m/%Y'), psicologo_encargado = '$campos[psicologo_encargado]', candidato_seleccionado = '$campos[candidato_seleccionado]', otros_datos_candidato = '$campos[otros_datos_candidato]' where id = '$id'";
 	$conex->Ejecutar($sql);
 }
 
@@ -43,17 +55,6 @@ function ModificaOfertaPsico($id, $estado, $candidato_seleccionado, $otros_datos
 	$conex = BD::GetInstance();
 	$sql = "update tbl_ofertas set estado = '$estado', candidato_seleccionado = '$candidato_seleccionado', otros_datos_candidato = '$otros_datos_candidato' where id = '$id'";
 	$conex->Ejecutar($sql);
-}
-
-function BuscaOfertaPaginacion($campo, $busqueda, $inicio, $tamano_pagina) {
-	$conex = BD::getInstance();
-	$conex->Consulta("select * from tbl_ofertas where lower($campo) like lower('$busqueda%') limit $inicio, $tamano_pagina");
-	while ($rs = $conex->LeeRegistro()) {
-		$lista[] = $rs;
-	}
-	if (!empty($lista)) {
-		return $lista;
-	}
 }
 
 function SwitchCriterio($criterio) {
@@ -74,7 +75,7 @@ function SwitchCriterio($criterio) {
 	return $crit;
 }
 
-function Buscar($campos, $inicio, $tamano_pagina) {
+function BuscaOfertasPaginacion($campos, $inicio, $tamano_pagina) {
 	$conex = BD::getInstance();
 	if(!empty(trim($campos["descripcion"]))) {
 		if ($campos["criterio1"] == "cont") {
@@ -164,4 +165,21 @@ function TextoEstado($estado) {
 			break;
 	}
 	return $texto;
+}
+
+function RefVolver() {
+	if (isset($_SESSION["url_buscar"])) {
+		$ctrl = "?" . $_SESSION["url_buscar"];
+	}
+	elseif ($_SESSION["tipo_usuario"] == "Administrador") {
+		$ctrl = "?ctrl=ctrl_admin";
+	} else {
+		$ctrl = "?ctrl=ctrl_psico";
+	}
+	if (isset($_SESSION["page"]) && !isset($_SESSION["url_buscar"])) {
+		$page = "&page=" . $_SESSION["page"];
+	} else {
+		$page = "";
+	}
+	return $ctrl . $page;
 }

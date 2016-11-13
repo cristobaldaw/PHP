@@ -1,16 +1,19 @@
 <div class="container">
-	<div class="jumbotron jumbotron-azul">
+	<div class="jumbotron jumbotron-gray">
 		<div class="text-md-left">
-			<a href="?ctrl=<?=$ref_volver?>" class="btn btn-primary btn_volver" title="Volver"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i></a>
+			<a href="?ctrl=<?=$ref_volver1?>" class="btn btn-secondary" id="btn_volver_buscar" title="Volver"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i></a>
 		</div>
 		<div class="text-md-center">
 			<?php
-			if (isset($resultados) && empty($resultados)) { ?>
+			if (!empty($errores)) { ?>
 				<div class="alert alert-danger col-md-6 offset-md-3">
-					<ul>Introduzca al menos un campo para buscar</ul>
+					<ul>
+						<li>Introduzca al menos un campo para buscar</li>
+					</ul>
 				</div> <?php
 			} ?>
-			<h1 class="display-3">Búsqueda</h1><br>
+			<h1 class="display-3">Búsqueda</h1>
+			<hr>
 			<form method="get">
 				<input type="hidden" name="ctrl" value="ctrl_buscar">
 				<div class="row">
@@ -47,7 +50,7 @@
 					</div>
 				</div>
 				<div class="row">
-					<br><button type="submit" class="btn btn-primary btn-lg"><i class="fa fa-search" aria-hidden="true"></i> Buscar</button>
+					<br><button type="submit" class="btn btn-primary btn-lg btn-block"><i class="fa fa-search" aria-hidden="true"></i> Buscar</button>
 				</div>
 			</form>
 		</div>
@@ -85,11 +88,13 @@
 									<a href="?ctrl=ctrl_informacion&id=<?=$resultado['id']?>" class="btn btn-sm btn-info" title="Información"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
 								</li>
 								<li class="list-inline-item">
-									<a href="?ctrl=ctrl_mod_admin&id=<?=$resultado['id']?>" class="btn btn-sm btn-primary" title="Modificar"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-								</li>
+									<a href="?ctrl=<?=$mod?>&id=<?=$resultado['id']?>" class="btn btn-sm btn-primary" title="Modificar"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+								</li> <?php
+								if (EsAdmin()) { ?>
 								<li class="list-inline-item">
 									<a href="?ctrl=ctrl_eliminar&id=<?=$resultado['id']?>" class="btn btn-sm btn-danger" title="Eliminar"><i class="fa fa-trash" aria-hidden="true"></i></a>
-								</li>
+								</li> <?php
+								} ?>
 							</ul>
 						</td>
 					</tr> <?php
@@ -98,6 +103,6 @@
 		</tbody>
 	</table> <?php
 	if (!empty($resultados)) {
-		PaginacionBusqueda($total_resultados, $tamano_pagina, $total_paginas, $pagina, "ctrl_buscar", $_GET);
+		PaginacionBusqueda($total_resultados, $tamano_pagina, $total_paginas, $page, "ctrl_buscar", $_GET);
 	} ?>
 </div>

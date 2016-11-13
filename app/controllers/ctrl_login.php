@@ -1,16 +1,16 @@
 <?php
-if (isset($_SESSION["tipo_usuario"]) && $_SESSION["tipo_usuario"] == "Administrador") {
+include MODEL_PATH."model_usuarios.php";
+if (EsAdmin()) {
 	header("location: ?ctrl=ctrl_admin");
-} elseif (isset($_SESSION["tipo_usuario"]) && $_SESSION["tipo_usuario"] == "Psicólogo") {
+} elseif (EsPsico()) {
 	header("location: ?ctrl=ctrl_psico");
 } else {
-	include MODEL_PATH."model_usuarios.php";
 	include HELP_PATH."helper.php";
 	$errores = array();
 	if (!$_POST) {
 		include VIEW_PATH."view_login.php";
 	} else {
-		if (EstaVacio($_POST["usuario"]) || EstaVacio($_POST["pass"])) { // Si uno de los dos campos está vacío...
+		if (empty(trim($_POST["usuario"])) || empty(trim($_POST["pass"]))) { // Si uno de los dos campos está vacío...
 			array_push($errores, array("bool" => true, "error" => "Introduzca usuario y contraseña."));
 			include VIEW_PATH."view_login.php";
 		} else {
@@ -27,7 +27,7 @@ if (isset($_SESSION["tipo_usuario"]) && $_SESSION["tipo_usuario"] == "Administra
 						$_SESSION["tipo_usuario"] = "Psicólogo";
 						header("location: ?ctrl=ctrl_psico");
 					}
-					$_SESSION["usuario"] = $dato["usuario"];
+					$_SESSION["usuario"] = $datos["usuario"];
 					$_SESSION["hora"] = date('H:i', time());
 				} else { // Si el login no es correcto...
 					array_push($errores, array("bool" => true, "error" => "Usuario y contraseña incorrectos."));

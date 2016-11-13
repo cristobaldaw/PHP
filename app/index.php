@@ -25,14 +25,13 @@ define("TEMPLATE_PATH", __DIR__."/template/");
 session_start();
 include TEMPLATE_PATH."header.php"; ?>
 <div class="cuerpo"> <?php
-	$ctrl=isset($_GET['ctrl']) ? $_GET['ctrl'] : 'ctrl_login';
-	$file=CTRL_PATH.$ctrl.".php";
+	$ctrl = isset($_GET["ctrl"]) ? $_GET["ctrl"] : "ctrl_login";
+	$file = CTRL_PATH . $ctrl . ".php";
 	if (file_exists($file)) {
-	    include($file);
+	    include $file;
 	} else {
-	    include(VIEW_PATH.'error404.php');
-	}
-	?>
+	    include VIEW_PATH."error404.php";
+	} ?>
 </div>
 </body>
 </html>

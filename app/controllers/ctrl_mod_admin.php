@@ -1,32 +1,30 @@
 <?php
-if ($_SESSION["tipo_usuario"] == "Administrador") {
-	include HELP_PATH."filtrado.php";
+include MODEL_PATH."model_usuarios.php";
+if (EsAdmin()) {
+	include HELP_PATH."filtrados.php";
 	include MODEL_PATH."model_ofertas.php";
 	include MODEL_PATH."model_provincias.php";
 	include HELP_PATH."helper.php";
 	$datos = DatosUnaOferta($_GET["id"]);
 	$listaprovincias = ListaProvincias();
-	$estados = array(
-		"P" => "Pendiente de iniciar selección",
-		"R" => "Realizando selección",
-		"S" => "Seleccionado candidato",
-		"C" => "Cancelada");
-	if (!isset($_POST["modificar2"])) {
+	$ref_volver1 = RefVolver();
+
+	if (!$_POST) {
 		include VIEW_PATH."view_mod_admin.php";
 	} else {
-		$errores = Errores();
+		$errores = FiltradoOfertas();
 		if (in_array(true, $errores)) { // Si el array contiene algún valor true, es que hay algún error
 			include VIEW_PATH."view_mod_admin.php";
 		} else {
 			if (!isset($_POST["estado"])) {
 				$_POST["estado"] = "";
 			}
-			if (empty(trim($_POST["fecha_comunicacion"]))) {
+			if (EstaVacio($_POST["fecha_comunicacion"])) {
 				$_POST["fecha_comunicacion"] = "NULL";
 			}
-			ModificaOferta($_POST);
+			ModificaOfertaAdmin($_GET['id'], $_POST);
 			$accion = "modificado";
-			$ref_volver = "ctrl_admin";
+			$ref_volver2 = isset($_SESSION["url_buscar"]) ? $_SESSION["url_buscar"] : "ctrl=ctrl_admin";
 			include VIEW_PATH."exito.php";
 		}
 	}

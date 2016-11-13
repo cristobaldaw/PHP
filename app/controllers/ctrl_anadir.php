@@ -1,30 +1,28 @@
 <?php
-if ($_SESSION["tipo_usuario"] == "Administrador") {
-	include HELP_PATH."filtrado.php";
+include MODEL_PATH."model_usuarios.php";
+if (EsAdmin()) {
+	include HELP_PATH."helper.php";
+	include HELP_PATH."filtrados.php";
 	include MODEL_PATH."model_ofertas.php";
 	include MODEL_PATH."model_provincias.php";
-	include HELP_PATH."helper.php";
 	$listaprovincias = ListaProvincias();
-	$estados = array(
-		"P" => "Pendiente de iniciar selección",
-		"R" => "Realizando selección",
-		"S" => "Seleccionado candidato",
-		"C" => "Cancelada");
+	$ref_volver1 = RefVolver();
+	
 	if (!$_POST) {
 		include VIEW_PATH."view_anadir.php";
 	} else {
-		$errores = Errores();
+		$errores = FiltradoOfertas();
 		if (in_array(true, $errores)) { // Si el array contiene algún valor true, es que hay algún error
 			include VIEW_PATH."view_anadir.php";
 		} else {
 			if (!isset($_POST["estado"])) {
 				$_POST["estado"] = "";
 			}
-			if (empty(trim($_POST["fecha_comunicacion"]))) {
+			if (EstaVacio($_POST["fecha_comunicacion"])) {
 				$_POST["fecha_comunicacion"] = "NULL";
 			}
 			InsertaOferta($_POST);
-			$ref_volver = "ctrl_admin";
+			$ref_volver2 = "ctrl_admin";
 			$accion = "añadido";
 			include VIEW_PATH."exito.php";
 		}

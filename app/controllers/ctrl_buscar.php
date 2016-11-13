@@ -1,38 +1,40 @@
 <?php
-if ($_SESSION["tipo_usuario"] == "Administrador" || $_SESSION["tipo_usuario"] == "Psicólogo") {
-	if ($_SESSION["tipo_usuario"] == "Administrador")
-		$ref_volver = "ctrl_admin";
-	else
-		$ref_volver = "ctrl_psico";
-	
+include MODEL_PATH."model_usuarios.php";
+if (EsAdmin() || EsPsico()) {
+	if (EsAdmin()) {
+		$mod = "ctrl_mod_admin";
+	} else {
+		$mod = "ctrl_mod_psico";
+	}
 	include MODEL_PATH."model_ofertas.php";
 	include MODEL_PATH."model_provincias.php";
 	include HELP_PATH."helper.php";
-	include HELP_PATH."filtrado_buscar.php";
+	include HELP_PATH."filtrados.php";
+	$ref_volver1 = (EsAdmin()) ? "ctrl_admin" : 'ctrl_psico';
 
 	$tamano_pagina = 10;
-	if (!isset($_GET["pagina"])) {
+	if (!isset($_GET["page"])) {
 	    $inicio = 0;
-	    $pagina = 1;
+	    $page = 1;
 	} else {
-		$pagina = $_GET["pagina"];
-	    $inicio = ($pagina - 1) * $tamano_pagina;
+		$page = $_GET["page"];
+	    $inicio = ($page - 1) * $tamano_pagina;
 	}
 
-	$campos = array(
-		"=" => "Igual",
-		"cont" => "Contiene",
-		"may" => "Mayor",
-		"men" => "Menor");
-
+	$total_resultados = "";
 	if (!isset($_GET["descripcion"])) {
-		$total_resultados = "";
 		include VIEW_PATH."view_buscar.php";
 	} else {
-		$resultados = Buscar($_GET, $inicio, $tamano_pagina);
-		$total_resultados = TotalResultados($_GET);
-		$total_paginas = ceil($total_resultados / $tamano_pagina);
-		include VIEW_PATH."view_buscar.php";
+		$errores = FiltradoBuscar();
+		if (in_array(true, $errores)) {
+			include VIEW_PATH."view_buscar.php";
+		} else {
+			$_SESSION["url_buscar"] = $_SERVER['QUERY_STRING'];
+			$resultados = BuscaOfertasPaginacion($_GET, $inicio, $tamano_pagina);
+			$total_resultados = TotalResultados($_GET);
+			$total_paginas = ceil($total_resultados / $tamano_pagina);
+			include VIEW_PATH."view_buscar.php";
+		}
 	}
 } else {
 	header("location: index.php");

@@ -1,6 +1,10 @@
 <?php
 include_once "bd_singleton.php";
 
+$tipos = array(
+	"A" => "Administrador",
+	"P" => "Psicólogo");
+
 function DatosUsuario($usuario) {
 	$conex = BD::GetInstance();
 	$conex->Consulta("select * from tbl_usuarios where usuario = '$usuario'");
@@ -83,6 +87,20 @@ function TipoUsuario($tipo) {
 
 function ConfirmPassOK($pass1, $pass2) {
 	if ($pass1 == $pass2)
+		return true;
+	else
+		return false;
+}
+
+function EsAdmin() {
+	if (isset($_SESSION["tipo_usuario"]) && $_SESSION["tipo_usuario"] == "Administrador")
+		return true;
+	else
+		return false;
+}
+
+function EsPsico() {
+	if (isset($_SESSION["tipo_usuario"]) && $_SESSION["tipo_usuario"] == "Psicólogo")
 		return true;
 	else
 		return false;

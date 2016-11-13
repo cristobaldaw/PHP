@@ -1,15 +1,17 @@
 <?php
-if ($_SESSION["tipo_usuario"] == "Administrador") {
+include MODEL_PATH."model_usuarios.php";
+if (EsAdmin()) {
 	include MODEL_PATH."model_ofertas.php";
 	include MODEL_PATH."model_provincias.php";
-	if (isset($_POST["conf_eliminar"])) {
+	if (!$_POST) {
+		$datos = DatosUnaOferta($_GET["id"]);
+		$ref_volver1 = RefVolver();
+		include VIEW_PATH."view_eliminar.php";
+	} else {
 		EliminaOferta($_GET["id"]);
 		$accion = "eliminado";
-		$ref_volver = "ctrl_admin";
+		$ref_volver2 = "ctrl_admin";
 		include VIEW_PATH."exito.php";
-	} else {
-		$datos = DatosUnaOferta($_GET["id"]);
-		include VIEW_PATH."view_eliminar.php";
 	}
 } else {
 	header("location: index.php");
