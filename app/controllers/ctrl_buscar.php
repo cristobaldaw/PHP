@@ -25,8 +25,10 @@ if (EsAdmin() || EsPsico()) {
 	if (!isset($_GET["descripcion"])) {
 		include VIEW_PATH."view_buscar.php";
 	} else {
-		$errores = FiltradoBuscar();
-		if (in_array(true, $errores)) {
+		if (EstaVacio($_GET["descripcion"]) && EstaVacio($_GET["fecha_creacion"]) && EstaVacio($_GET["persona_contacto"])) {
+			$error = true;
+		}
+		if (isset($error)) {
 			include VIEW_PATH."view_buscar.php";
 		} else {
 			$_SESSION["url_buscar"] = $_SERVER['QUERY_STRING'];

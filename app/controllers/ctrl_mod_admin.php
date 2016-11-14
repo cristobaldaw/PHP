@@ -13,7 +13,7 @@ if (EsAdmin()) {
 		include VIEW_PATH."view_mod_admin.php";
 	} else {
 		$errores = FiltradoOfertas();
-		if (in_array(true, $errores)) { // Si el array contiene algún valor true, es que hay algún error
+		if (!empty($errores)) {
 			include VIEW_PATH."view_mod_admin.php";
 		} else {
 			if (!isset($_POST["estado"])) {

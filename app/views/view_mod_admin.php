@@ -9,7 +9,7 @@
 					<div class="alert alert-danger">
 						<ul> <?php
 							foreach ($errores as $error) { ?>
-								<li><?=$error['error']?></li> <?php
+								<li><?=$error?></li> <?php
 							} ?>
 						</ul>
 					</div> <?php

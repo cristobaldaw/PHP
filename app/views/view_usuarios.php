@@ -1,7 +1,7 @@
 <div class="container">
 	<div class="jumbotron jumbotron text-md-center jumbotron-gray">
 		<div class="text-md-left">
-			<a href="?ctrl=ctrl_admin" class="btn btn-secondary" id="btn_volver_buscar" title="Volver"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i></a>
+			<a href="?ctrl=ctrl_admin" class="btn btn-secondary btn_volver" title="Volver"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i></a>
 		</div>
 		<h1 class="display-3">Gestión de usuarios</h1>
 		<hr>

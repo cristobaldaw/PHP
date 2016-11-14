@@ -32,11 +32,10 @@ textarea {
 }
 
 hr {
-height: 1px;
-color: white;
-opacity: 0.3;
-background-color: white;
-border: none;
+    height: 1px;
+    opacity: 0.3;
+    background-color: white;
+    border: none;
 }
 
 tbody {
@@ -55,7 +54,7 @@ tbody {
     width: 12%;
 }
 
-#btn_volver_buscar {
+.btn_volver {
     margin-top: -5%;
     margin-left: -2%;
 }

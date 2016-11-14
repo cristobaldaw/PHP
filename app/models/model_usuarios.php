@@ -5,18 +5,9 @@ $tipos = array(
 	"A" => "Administrador",
 	"P" => "Psicólogo");
 
-function DatosUsuario($usuario) {
+function DatosUsuario($campo, $busqueda) {
 	$conex = BD::GetInstance();
-	$conex->Consulta("select * from tbl_usuarios where usuario = '$usuario'");
-	while ($rs = $conex->LeeRegistro()) {
-		$datos[] = $rs;
-	}
-	return $datos;
-}
-
-function DatosUsuarioByID($id) {
-	$conex = BD::GetInstance();
-	$conex->Consulta("select * from tbl_usuarios where id = '$id'");
+	$conex->Consulta("select * from tbl_usuarios where $campo = '$busqueda'");
 	while ($rs = $conex->LeeRegistro()) {
 		$datos[] = $rs;
 	}
@@ -85,7 +76,7 @@ function TipoUsuario($tipo) {
 	}
 }
 
-function ConfirmPassOK($pass1, $pass2) {
+function ConfirmPass($pass1, $pass2) {
 	if ($pass1 == $pass2)
 		return true;
 	else

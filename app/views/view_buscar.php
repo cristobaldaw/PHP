@@ -1,11 +1,11 @@
 <div class="container">
 	<div class="jumbotron jumbotron-gray">
 		<div class="text-md-left">
-			<a href="?ctrl=<?=$ref_volver1?>" class="btn btn-secondary" id="btn_volver_buscar" title="Volver"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i></a>
+			<a href="?ctrl=<?=$ref_volver1?>" class="btn btn-secondary btn_volver" title="Volver"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i></a>
 		</div>
 		<div class="text-md-center">
 			<?php
-			if (!empty($errores)) { ?>
+			if (isset($error)) { ?>
 				<div class="alert alert-danger col-md-6 offset-md-3">
 					<ul>
 						<li>Introduzca al menos un campo para buscar</li>

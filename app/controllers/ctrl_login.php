@@ -15,7 +15,7 @@ if (EsAdmin()) {
 			include VIEW_PATH."view_login.php";
 		} else {
 			if (ExisteUsuario($_POST["usuario"])) { // Si existe el usuario saco sus datos
-				$datos = DatosUsuario($_POST["usuario"]);
+				$datos = DatosUsuario("usuario", $_POST["usuario"]);
 				foreach ($datos as $dato) {
 					$datos = $dato;
 				}

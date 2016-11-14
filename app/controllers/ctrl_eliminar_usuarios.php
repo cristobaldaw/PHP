@@ -1,7 +1,7 @@
 <?php
 include MODEL_PATH."model_usuarios.php";
 if (EsAdmin()) {
-	$datos = DatosUsuarioByID($_GET['id']);
+	$datos = DatosUsuario("id", $_GET['id']);
 	foreach ($datos as $dato) {
 		$usuario = $dato["usuario"];
 	}

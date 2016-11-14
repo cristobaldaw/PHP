@@ -171,11 +171,12 @@ function RefVolver() {
 	if (isset($_SESSION["url_buscar"])) {
 		$ctrl = "?" . $_SESSION["url_buscar"];
 	}
-	elseif ($_SESSION["tipo_usuario"] == "Administrador") {
+	elseif (EsAdmin()) {
 		$ctrl = "?ctrl=ctrl_admin";
 	} else {
 		$ctrl = "?ctrl=ctrl_psico";
 	}
+	
 	if (isset($_SESSION["page"]) && !isset($_SESSION["url_buscar"])) {
 		$page = "&page=" . $_SESSION["page"];
 	} else {
