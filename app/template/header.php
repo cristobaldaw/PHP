@@ -19,7 +19,7 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
-				<h4 class="modal-title">¿Estás seguro de que desea cerrar sesión?</h4>
+				<h4 class="modal-title">¿Está seguro de que desea cerrar sesión?</h4>
 			</div>
 			<div class="modal-body">
 				<a href="?ctrl=logout" class="btn btn-primary">Cerrar sesión</a>

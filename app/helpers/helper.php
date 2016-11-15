@@ -47,9 +47,12 @@ function CreaRadio($name, $opciones, $valorDefecto='') {
 
 function Paginacion($total_registros, $tamano_pagina, $total_paginas, $page, $ctrl) {
 	$url = "?ctrl=$ctrl";
+	if ($page > $total_paginas && $total_registros > 0) { // Si introduzco una página mayor que el total de páginas, voy a la última página
+		header("location: $url&page=$total_paginas");
+	}
 	if ($total_registros > $tamano_pagina) { // Si el total de registros es menor que el tamaño de la página, no hay paginación ?>
 		<div class="text-md-center">
-			<ul class="pagination"><?php
+			<ul class="pagination"> <?php
 				if ($page != 1) { // Si estoy en la primera página, no me deja retroceder más ?>
 					<li><a href="<?=$url?>&page=1">&lt;&lt;</a></li>
 					<li><a href="<?=$url?>&page=<?=($page-1)?>">&lt;</a></li> <?php 
@@ -76,7 +79,7 @@ function PaginacionBusqueda($total_registros, $tamano_pagina, $total_paginas, $p
 	$url = "?ctrl=$ctrl&criterio1=$campos[criterio1]&descripcion=$campos[descripcion]&criterio2=$campos[criterio2]&fecha_creacion=$campos[fecha_creacion]&criterio3=$campos[criterio3]&persona_contacto=$campos[persona_contacto]";
 	if ($total_registros > $tamano_pagina) { // Si el total de registros es menor que el tamaño de la página, no hay paginación ?>
 		<div class="text-md-center">
-			<ul class="pagination"><?php
+			<ul class="pagination"> <?php
 				if ($page != 1) { // Si estoy en la primera página, no me deja retroceder más ?>
 					<li><a href="<?=$url?>&page=1">&lt;&lt;</a></li>
 					<li><a href="<?=$url?>&page=<?=($page-1)?>">&lt;</a></li> <?php 

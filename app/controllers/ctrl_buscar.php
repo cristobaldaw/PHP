@@ -22,22 +22,17 @@ if (EsAdmin() || EsPsico()) {
 	}
 
 	$total_resultados = "";
-	if (!isset($_GET["descripcion"])) {
-		include VIEW_PATH."view_buscar.php";
-	} else {
+	if (isset($_GET["descripcion"])) {
 		if (EstaVacio($_GET["descripcion"]) && EstaVacio($_GET["fecha_creacion"]) && EstaVacio($_GET["persona_contacto"])) {
 			$error = true;
-		}
-		if (isset($error)) {
-			include VIEW_PATH."view_buscar.php";
 		} else {
 			$_SESSION["url_buscar"] = $_SERVER['QUERY_STRING'];
 			$resultados = BuscaOfertasPaginacion($_GET, $inicio, $tamano_pagina);
 			$total_resultados = TotalResultados($_GET);
 			$total_paginas = ceil($total_resultados / $tamano_pagina);
-			include VIEW_PATH."view_buscar.php";
 		}
 	}
+	include VIEW_PATH."view_buscar.php";
 } else {
 	header("location: index.php");
 }

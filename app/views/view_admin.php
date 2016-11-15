@@ -6,6 +6,21 @@
 		<a href="?ctrl=ctrl_buscar" class="btn btn-primary"><i class="fa fa-search" aria-hidden="true"></i> Buscar</a>
 		<a href="?ctrl=ctrl_usuarios" class="btn btn-secondary"><i class="fa fa-user" aria-hidden="true"></i> Gestión de usuarios</a>
 	</div>
+	<div class="col-md-8" id="opciones_ofertas">
+		<form method="post">
+			<label for="orderby">Ordenar por:</label>
+			<?=CreaSelect("orderby", $orderby, $_SESSION["orderby"])?>
+			<?=CreaSelect("orden", $orden, $_SESSION["orden"])?>
+			<button type="submit" class="btn btn-primary">Ordenar</button>
+		</form>
+	</div>
+	<div class="col-md-4 text-md-right">
+		<form method="post">
+			<label for="tamano_pagina">Nº de ofertas por página:</label>
+			<?=CreaSelect("tamano_pagina", $tamano_pagina, $_SESSION["tamano_pagina"])?>
+			<button type="submit" class="btn btn-primary">Enviar</button>
+		</form>
+	</div>
 	<table class="table table-bordered table-hover">
 		<thead class="table-inverse">
 			<tr>
@@ -42,5 +57,5 @@
 			} ?>
 		</tbody>
 	</table>
-	<?= Paginacion($total_ofertas, $tamano_pagina, $total_paginas, $page, "ctrl_admin"); ?>
+	<?= Paginacion($total_ofertas, $_SESSION["tamano_pagina"], $total_paginas, $_SESSION["page"], "ctrl_admin"); ?>
 </div>

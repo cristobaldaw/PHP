@@ -13,15 +13,33 @@ $campos = array(
 		"may" => "Mayor",
 		"men" => "Menor");
 
+$orderby = array(
+	"fecha_creacion" => "Fecha de creación",
+	"descripcion" => "Descripción",
+	"persona_contacto" => "Persona de contacto",
+	"telefono_contacto" => "Teléfono de contacto",
+	"email" => "Correo electrónico",
+	"provincia" => "Provincia");
+
+$orden = array(
+	"asc" => "Ascendente",
+	"desc" => "Descendente");
+
+$tamano_pagina = array(
+	"5" => "5",
+	"10" => "10",
+	"15" => "15",
+	"20" => "20");
+
 function InsertaOferta($campos) {
 	$conex = BD::getInstance();
 	$sql = "insert into tbl_ofertas (descripcion, persona_contacto, telefono_contacto, email, direccion, poblacion, codigo_postal, provincia, estado, fecha_comunicacion, psicologo_encargado, candidato_seleccionado, otros_datos_candidato) values ('$campos[descripcion]', '$campos[persona_contacto]', '$campos[telefono_contacto]', '$campos[email]', '$campos[direccion]', '$campos[poblacion]', '$campos[codigo_postal]', '$campos[provincia]', '$campos[estado]', STR_TO_DATE('$campos[fecha_comunicacion]', '%d/%m/%Y'), '$campos[psicologo_encargado]', '$campos[candidato_seleccionado]', '$campos[otros_datos_candidato]')";
 	$conex->Ejecutar($sql);
 }
 
-function ListaOfertasPaginacion($inicio, $tamano_pagina) {
+function ListaOfertasPaginacion($inicio, $tamano_pagina, $orderby, $orden) {
 	$conex = BD::getInstance();
-	$conex->Consulta("select *, DATE_FORMAT(fecha_creacion,'%d/%m/%Y') as fecha_creacion from tbl_ofertas order by fecha_creacion desc limit $inicio, $tamano_pagina");
+	$conex->Consulta("select *, DATE_FORMAT(fecha_creacion,'%d/%m/%Y') as fecha_creacion from tbl_ofertas order by $orderby $orden limit $inicio, $tamano_pagina");
 	while ($rs = $conex->LeeRegistro()) {
 		$lista[] = $rs;
 	}
@@ -180,6 +198,9 @@ function RefVolver() {
 	if (isset($_SESSION["page"]) && !isset($_SESSION["url_buscar"])) {
 		$page = "&page=" . $_SESSION["page"];
 	} else {
+		$page = "";
+	}
+	if ($_SESSION["page"] == 1) {
 		$page = "";
 	}
 	return $ctrl . $page;
