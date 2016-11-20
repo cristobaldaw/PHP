@@ -15,5 +15,5 @@ if (EsAdmin()) {
 		}
 	}
 } else {
-	header("location: index.php");
+	header("location: ?ctrl=ctrl_login");
 }

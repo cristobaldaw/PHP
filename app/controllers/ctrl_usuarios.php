@@ -18,5 +18,5 @@ if (EsAdmin()) {
 
 	include VIEW_PATH."view_usuarios.php";
 } else {
-	header("location: index.php");
+	header("location: ?ctrl=ctrl_login");
 }

@@ -11,10 +11,10 @@ if (EsAdmin()) {
 		if (!empty($errores)) {
 			include VIEW_PATH."view_modificar_usuario.php";
 		} else {
-			ModificaUsuario($_POST);
+			ModificaUsuario($_GET["id"], $_POST);
 			header("location: ?ctrl=ctrl_usuarios");
 		}
 	}
 } else {
-	header("location: index.php");
+	header("location: ?ctrl=ctrl_login");
 }

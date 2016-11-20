@@ -1,42 +1,23 @@
 <?php
 include MODEL_PATH."model_usuarios.php";
-if (EsAdmin()) {
-	header("location: ?ctrl=ctrl_admin");
-} elseif (EsPsico()) {
-	header("location: ?ctrl=ctrl_psico");
+include HELP_PATH."helper.php";
+if (EsAdmin() || EsPsico()) { // Si está logueado va a la pantalla de inicio
+	header("location: ?ctrl=ctrl_inicio");
 } else {
-	include HELP_PATH."helper.php";
-	$errores = array();
-	if (!$_POST) {
-		include VIEW_PATH."view_login.php";
-	} else {
-		if (empty(trim($_POST["usuario"])) || empty(trim($_POST["pass"]))) { // Si uno de los dos campos está vacío...
-			array_push($errores, array("bool" => true, "error" => "Introduzca usuario y contraseña."));
-			include VIEW_PATH."view_login.php";
-		} else {
-			if (ExisteUsuario($_POST["usuario"])) { // Si existe el usuario saco sus datos
-				$datos = DatosUsuario("usuario", $_POST["usuario"]);
-				foreach ($datos as $dato) {
-					$datos = $dato;
-				}
-				if ($_POST["pass"] == $datos["pass"]) { // Si el usuario coincide con la contraseña...
-					if ($datos["tipo"] == "A") { // Si es administrador...
-						$_SESSION["tipo_usuario"] = "Administrador";
-						header("location: ?ctrl=ctrl_admin");
-					} else { // Si es psicólogo...
-						$_SESSION["tipo_usuario"] = "Psicólogo";
-						header("location: ?ctrl=ctrl_psico");
-					}
-					$_SESSION["usuario"] = $datos["usuario"];
-					$_SESSION["hora"] = date('H:i', time());
-				} else { // Si el login no es correcto...
-					array_push($errores, array("bool" => true, "error" => "Usuario y contraseña incorrectos."));
-					include VIEW_PATH."view_login.php";
-				}
-			} else { // Si el usuario no existe...
-				array_push($errores, array("bool" => true, "error" => "Usuario y contraseña incorrectos."));
-				include VIEW_PATH."view_login.php";
+	if ($_POST) {
+		if (ExisteUsuario($_POST["usuario"])) { // Si existe el usuario saco sus datos
+			$datos = DatosUsuario("usuario", $_POST["usuario"]);
+			if ($_POST["pass"] == $datos["pass"]) { // Si el login es correcto guardo los datos en sesión
+				$_SESSION["usuario"] = $datos["usuario"];
+				$_SESSION["tipo_usuario"] = ($datos["tipo"] == "A") ? "administrador" : "psicólogo";
+				$_SESSION["hora"] = date("H:i");
+				header("location: ?ctrl=ctrl_inicio");
+			} else { // Si el login no es correcto
+				$error = true; 
 			}
+		} else { // Si el usuario no existe
+			$error = true;
 		}
 	}
+	include VIEW_PATH."view_login.php";
 }

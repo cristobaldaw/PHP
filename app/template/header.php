@@ -4,7 +4,7 @@
 		if (isset($_SESSION['tipo_usuario'])) { ?>
 			<span class="navbar-text float-md-right text-muted">
 				<strong>Usuario:</strong> <?=$_SESSION["usuario"]?> | 
-				<strong>Tipo de usuario:</strong> <?=$_SESSION["tipo_usuario"]?> |
+				<strong>Tipo de usuario:</strong> <?=ucfirst($_SESSION["tipo_usuario"])?> |
 				Sesión iniciada a las <?=$_SESSION["hora"]?> |
 				<a href="" data-toggle="modal" data-target="#logout" title="Cerrar sesión"><i class="fa fa-sign-out fa-lg" aria-hidden="true"></i></a>
 			</span> <?php

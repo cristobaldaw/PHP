@@ -1,16 +1,18 @@
 <?php
 include MODEL_PATH."model_usuarios.php";
-if (EsAdmin()) {
-	include MODEL_PATH."model_ofertas.php";
-	include MODEL_PATH."model_provincias.php";
-	include HELP_PATH."helper.php";
-	// Tamaño de la página
+include MODEL_PATH."model_ofertas.php";
+include MODEL_PATH."model_provincias.php";
+include HELP_PATH."helper.php";
+// include MODEL_PATH."datos_random.php";
+// DatosRandom();
+if (EsAdmin() || EsPsico()) {
+	$mod = (EsAdmin()) ? "ctrl_mod_admin" : "ctrl_mod_psico";
 	if (isset($_POST["tamano_pagina"])) {
 		$_SESSION["tamano_pagina"] = $_POST["tamano_pagina"];
-		header("location: ?ctrl=ctrl_admin&page=1"); // Si se cambia el tamaño de la página, vuelvo a la primera página
+		header("location: ?ctrl=ctrl_inicio&page=1"); // Si se cambia el tamaño de la página, vuelvo a la primera página
 	}
-	if (!isset($_SESSION["tamano_pagina"])) { // El tamaño de página por defecto es 10
-		$_SESSION["tamano_pagina"] = 10;
+	if (!isset($_SESSION["tamano_pagina"])) { // El tamaño de página por defecto es 5
+		$_SESSION["tamano_pagina"] = 5;
 	}
 	// Criterio de ordenación
 	if (isset($_POST["orderby"])) {
@@ -30,12 +32,11 @@ if (EsAdmin()) {
 		$_SESSION["page"] = $_GET["page"];
 	    $inicio = ($_SESSION["page"] - 1) * $_SESSION["tamano_pagina"];
 	}
-	
 	unset($_SESSION["url_buscar"]);
-	$lista = ListaOfertasPaginacion($inicio, $_SESSION["tamano_pagina"], $_SESSION["orderby"], $_SESSION["orden"]);
+	$lista = ListaOfertas($inicio, $_SESSION["tamano_pagina"], $_SESSION["orderby"], $_SESSION["orden"]);
 	$total_ofertas = TotalOfertas();
 	$total_paginas = ceil($total_ofertas / $_SESSION["tamano_pagina"]);
-	include VIEW_PATH."view_admin.php";
+	include VIEW_PATH."view_inicio.php";
 } else {
-	header("location: index.php");
+	header("location: ?ctrl=ctrl_login");
 }

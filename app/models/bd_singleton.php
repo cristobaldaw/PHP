@@ -2,6 +2,7 @@
 /* Clase encargada de gestionar las conexiones a la base de datos */
 
 // Datos de configuración. Estos podrían ir en otro fichero
+
 $db_conf=array(
 	'servidor'=>'localhost',
 	'usuario'=>'root',

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-11-2016 a las 00:00:58
+-- Tiempo de generación: 18-11-2016 a las 23:33:22
 -- Versión del servidor: 10.1.16-MariaDB
 -- Versión de PHP: 5.6.24
 
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `jobyesterdaydb`
 --
+CREATE DATABASE IF NOT EXISTS `jobyesterdaydb` DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci;
+USE `jobyesterdaydb`;
 
 -- --------------------------------------------------------
 
@@ -47,10 +49,8 @@ CREATE TABLE `tbl_ofertas` (
 --
 -- Disparadores `tbl_ofertas`
 --
-DELIMITER $$
-CREATE TRIGGER `TriggerFechaCreacion` BEFORE INSERT ON `tbl_ofertas` FOR EACH ROW set new.fecha_creacion = curdate()
-$$
-DELIMITER ;
+
+CREATE TRIGGER `TriggerFechaCreacion` BEFORE INSERT ON `tbl_ofertas` FOR EACH ROW set new.fecha_creacion = curdate();
 
 -- --------------------------------------------------------
 
@@ -139,8 +139,8 @@ CREATE TABLE `tbl_usuarios` (
 --
 
 INSERT INTO `tbl_usuarios` (`id`, `usuario`, `pass`, `tipo`) VALUES
-(1, 'administrador', 'administrador', 'A'),
-(2, 'psicologo', 'psicologo', 'P');
+(1, 'admin', 'admin', 'A'),
+(2, 'psico', 'psico', 'P');
 
 --
 -- Índices para tablas volcadas
@@ -173,7 +173,7 @@ ALTER TABLE `tbl_usuarios`
 -- AUTO_INCREMENT de la tabla `tbl_ofertas`
 --
 ALTER TABLE `tbl_ofertas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=210;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=382;
 --
 -- AUTO_INCREMENT de la tabla `tbl_usuarios`
 --

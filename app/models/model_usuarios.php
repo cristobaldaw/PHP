@@ -11,6 +11,9 @@ function DatosUsuario($campo, $busqueda) {
 	while ($rs = $conex->LeeRegistro()) {
 		$datos[] = $rs;
 	}
+	foreach ($datos as $dato) {
+		$datos = $dato;
+	}
 	return $datos;
 }
 
@@ -48,9 +51,9 @@ function EliminaUsuario($id) {
 	$conex->Ejecutar($sql);
 }
 
-function ModificaUsuario($campos) {
+function ModificaUsuario($id, $campos) {
 	$conex = BD::GetInstance();
-	$sql = "update tbl_usuarios set usuario = '$campos[usuario]', pass = '$campos[pass]', tipo = '$campos[tipo]' where id = '$campos[id]'";
+	$sql = "update tbl_usuarios set usuario = '$campos[usuario]', pass = '$campos[pass]', tipo = '$campos[tipo]' where id = '$id'";
 	$conex->Ejecutar($sql);
 }
 
@@ -84,14 +87,14 @@ function ConfirmPass($pass1, $pass2) {
 }
 
 function EsAdmin() {
-	if (isset($_SESSION["tipo_usuario"]) && $_SESSION["tipo_usuario"] == "Administrador")
+	if (isset($_SESSION["tipo_usuario"]) && $_SESSION["tipo_usuario"] == "administrador")
 		return true;
 	else
 		return false;
 }
 
 function EsPsico() {
-	if (isset($_SESSION["tipo_usuario"]) && $_SESSION["tipo_usuario"] == "Psicólogo")
+	if (isset($_SESSION["tipo_usuario"]) && $_SESSION["tipo_usuario"] == "psicólogo")
 		return true;
 	else
 		return false;

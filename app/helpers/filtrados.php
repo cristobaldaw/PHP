@@ -71,9 +71,6 @@ function FiltradoUsuarios() {
 
 function FiltradoModUsuario() {
 	$datos = DatosUsuario("id", $_GET['id']);
-	foreach ($datos as $dato) {
-		$usuario = $dato["usuario"];
-	}
 	if (EstaVacio($_POST['usuario'])) {
 		$errores[] = "Introduzca un nombre de usuario.";
 	}
@@ -86,7 +83,7 @@ function FiltradoModUsuario() {
 	if (!isset($_POST["tipo"])) {
 		$errores[] = "Introduzca un tipo de usuario.";
 	}
-	if (ExisteUsuario($_POST["usuario"]) && $_POST["usuario"] != $usuario) { // Hay error si existe el usuario, salvo que sea el que estoy modificando
+	if (ExisteUsuario($_POST["usuario"]) && $_POST["usuario"] != $datos["usuario"]) { // Hay error si existe el usuario, salvo que sea el que estoy modificando
 		$errores[] = "El nombre de usuario ya existe.";
 	}
 	return $errores;

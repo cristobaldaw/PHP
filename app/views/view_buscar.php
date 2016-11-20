@@ -1,7 +1,7 @@
 <div class="container">
 	<div class="jumbotron jumbotron-gray">
 		<div class="text-md-left">
-			<a href="?ctrl=<?=$ref_volver1?>" class="btn btn-secondary btn_volver" title="Volver"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i></a>
+			<a href="?ctrl=ctrl_inicio" class="btn btn-secondary btn_volver" title="Volver"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i></a>
 		</div>
 		<div class="text-md-center">
 			<?php
@@ -54,55 +54,44 @@
 				</div>
 			</form>
 		</div>
-	</div>
-	<caption>Resultados: <?=$total_resultados?></caption>
-	<table class="table table-bordered table-hover">
-		<thead class="table-inverse">
-			<tr>
-				<th>Fecha de creación</th>
-				<th>Descripción</th>
-				<th>Persona de contacto</th>
-				<th>Teléfono de contacto</th>
-				<th>Correo electrónico</th>
-				<th>Provincia</th>
-				<th>Opciones</th>
-			</tr>
-		</thead>
-		<tbody> <?php
+	</div> <?php
 			if (empty($resultados)) { ?>
-				<tr>
-					<td colspan="7">No hay ofertas para mostrar</td>
-				</tr> <?php
+				<div class="card encabezado_oferta text-md-center">
+					<h1 class="card-title">No hay ofertas para mostrar</h1>
+				</div> <?php
 			} else {
 				foreach ($resultados as $resultado) { ?>
-					<tr>
-						<td><?=$resultado["fecha"]?></td>
-						<td><?=$resultado["descripcion"]?></td>
-						<td><?=$resultado["persona_contacto"]?></td>
-						<td><?=$resultado["telefono_contacto"]?></td>
-						<td><?=$resultado["email"]?></td>
-						<td><?=NombreProvincia($resultado["provincia"])?></td>
-						<td class="opciones">
-							<ul class="list-inline">
-								<li class="list-inline-item">
-									<a href="?ctrl=ctrl_informacion&id=<?=$resultado['id']?>" class="btn btn-sm btn-info" title="Información"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
-								</li>
-								<li class="list-inline-item">
-									<a href="?ctrl=<?=$mod?>&id=<?=$resultado['id']?>" class="btn btn-sm btn-primary" title="Modificar"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-								</li> <?php
-								if (EsAdmin()) { ?>
-								<li class="list-inline-item">
-									<a href="?ctrl=ctrl_eliminar&id=<?=$resultado['id']?>" class="btn btn-sm btn-danger" title="Eliminar"><i class="fa fa-trash" aria-hidden="true"></i></a>
-								</li> <?php
-								} ?>
-							</ul>
-						</td>
-					</tr> <?php
+					<div class="card card_listaofertas">
+						<div class="encabezado_listaofertas">
+							<h3><?=$resultado["descripcion"]?><small> (<?=TextoEstado($resultado["estado"])?>)</small></h3>
+						</div>
+						<div class="card-block">
+							<table border="0" class="table table-hover borderless">
+							<div class="datos_ofertas">
+								<tr>
+									<td><strong>Persona de contacto:</strong> <?=$resultado["persona_contacto"]?></td>
+									<td><strong>Correo electrónico:</strong> <?=$resultado["email"]?></td>
+									<td><strong>Provincia:</strong> <?=NombreProvincia($resultado["provincia"])?></td>
+								</tr>
+								<tr>
+									<td><strong>Teléfono de contacto:</strong> <?=$resultado["telefono_contacto"]?></td>
+									<td><strong>Psicólogo encargado:</strong> <?=$resultado["psicologo_encargado"]?></td>
+									<td><strong>Población:</strong> <?=$resultado["poblacion"]?></td>
+								</tr>
+							</div>
+							</table>
+							<hr class="hr_black">
+							<a href="?ctrl=ctrl_informacion&id=<?=$resultado['id']?>" id="informacion"><i class="fa fa-info" aria-hidden="true"></i> Información</a> | 
+							<a href="?ctrl=<?=$mod?>&id=<?=$resultado['id']?>" id="modificar"><i class="fa fa-pencil" aria-hidden="true"></i> Modificar</a> <?php
+							if (EsAdmin()) { ?>
+								| <a href="?ctrl=ctrl_eliminar&id=<?=$resultado['id']?>" id="eliminar"><i class="fa fa-times" aria-hidden="true"></i> Eliminar</a> <?php
+							} ?>
+							<p id="hacexdias" class="card-blockquote"><?=HaceXDias($resultado["fecha_creacion"])?></p>
+						</div>
+					</div> <?php
 				}
-			} ?>
-		</tbody>
-	</table> <?php
+			}
 	if (!empty($resultados)) {
-		PaginacionBusqueda($total_resultados, $tamano_pagina, $total_paginas, $page, "ctrl_buscar", $_GET);
+		Paginacion($total_resultados, $tamano_pagina, $total_paginas, $page);
 	} ?>
 </div>

@@ -1,7 +1,7 @@
 <div class="container">
 	<div class="jumbotron jumbotron text-md-center jumbotron-gray">
 		<div class="text-md-left">
-			<a href="?ctrl=ctrl_admin" class="btn btn-secondary btn_volver" title="Volver"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i></a>
+			<a href="?ctrl=ctrl_inicio" class="btn btn-secondary btn_volver" title="Volver"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i></a>
 		</div>
 		<h1 class="display-3">Gestión de usuarios</h1>
 		<hr>
@@ -21,10 +21,10 @@
 			<?php
 			foreach ($usuarios as $usuario) { ?>
 				<tr>
-					<td><?=$usuario['usuario']?></td>
-					<td><?=$usuario['pass']?></td>
-					<td><?=TipoUsuario($usuario['tipo'])?></td>
-					<td><a href="?ctrl=ctrl_eliminar_usuarios&id=<?=$usuario['id']?>" class="btn btn-danger btn-sm" title="Eliminar"><i class="fa fa-trash" aria-hidden="true"></i></a>
+					<td class="text-md-center"><?=$usuario['usuario']?></td>
+					<td class="text-md-center"><?=$usuario['pass']?></td>
+					<td class="text-md-center"><?=TipoUsuario($usuario['tipo'])?></td>
+					<td class="text-md-center"><a href="?ctrl=ctrl_eliminar_usuarios&id=<?=$usuario['id']?>" class="btn btn-danger btn-sm" title="Eliminar"><i class="fa fa-trash" aria-hidden="true"></i></a>
 					<a href="?ctrl=ctrl_modificar_usuario&id=<?=$usuario['id']?>" class="btn btn-info btn-sm" title="Modificar"><i class="fa fa-pencil" aria-hidden="true"></i></a>
 					</td>
 				</tr> <?php

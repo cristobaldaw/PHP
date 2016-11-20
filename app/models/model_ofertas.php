@@ -18,8 +18,7 @@ $orderby = array(
 	"descripcion" => "Descripción",
 	"persona_contacto" => "Persona de contacto",
 	"telefono_contacto" => "Teléfono de contacto",
-	"email" => "Correo electrónico",
-	"provincia" => "Provincia");
+	"email" => "Correo electrónico");
 
 $orden = array(
 	"asc" => "Ascendente",
@@ -32,12 +31,14 @@ $tamano_pagina = array(
 	"20" => "20");
 
 function InsertaOferta($campos) {
+	$campos["estado"] = (!isset($campos["estado"])) ? "" : $campos["estado"];
+	$campos["fecha_comunicacion"] = (EstaVacio($campos["fecha_comunicacion"])) ? "NULL" : $campos["fecha_comunicacion"];
 	$conex = BD::getInstance();
 	$sql = "insert into tbl_ofertas (descripcion, persona_contacto, telefono_contacto, email, direccion, poblacion, codigo_postal, provincia, estado, fecha_comunicacion, psicologo_encargado, candidato_seleccionado, otros_datos_candidato) values ('$campos[descripcion]', '$campos[persona_contacto]', '$campos[telefono_contacto]', '$campos[email]', '$campos[direccion]', '$campos[poblacion]', '$campos[codigo_postal]', '$campos[provincia]', '$campos[estado]', STR_TO_DATE('$campos[fecha_comunicacion]', '%d/%m/%Y'), '$campos[psicologo_encargado]', '$campos[candidato_seleccionado]', '$campos[otros_datos_candidato]')";
 	$conex->Ejecutar($sql);
 }
 
-function ListaOfertasPaginacion($inicio, $tamano_pagina, $orderby, $orden) {
+function ListaOfertas($inicio, $tamano_pagina, $orderby, $orden) {
 	$conex = BD::getInstance();
 	$conex->Consulta("select *, DATE_FORMAT(fecha_creacion,'%d/%m/%Y') as fecha_creacion from tbl_ofertas order by $orderby $orden limit $inicio, $tamano_pagina");
 	while ($rs = $conex->LeeRegistro()) {
@@ -64,14 +65,17 @@ function EliminaOferta($id) {
 }
 
 function ModificaOfertaAdmin($id, $campos) {
+	$campos["estado"] = (!isset($campos["estado"])) ? "" : $campos["estado"];
+	$campos["fecha_comunicacion"] = (EstaVacio($campos["fecha_comunicacion"])) ? "NULL" : $campos["fecha_comunicacion"];
 	$conex = BD::GetInstance();
 	$sql = "update tbl_ofertas set descripcion = '$campos[descripcion]', persona_contacto = '$campos[persona_contacto]', telefono_contacto = '$campos[telefono_contacto]', email = '$campos[email]', direccion = '$campos[direccion]', poblacion = '$campos[poblacion]', codigo_postal = '$campos[codigo_postal]', provincia = '$campos[provincia]', estado = '$campos[estado]', fecha_comunicacion = STR_TO_DATE('$campos[fecha_comunicacion]', '%d/%m/%Y'), psicologo_encargado = '$campos[psicologo_encargado]', candidato_seleccionado = '$campos[candidato_seleccionado]', otros_datos_candidato = '$campos[otros_datos_candidato]' where id = '$id'";
 	$conex->Ejecutar($sql);
 }
 
-function ModificaOfertaPsico($id, $estado, $candidato_seleccionado, $otros_datos_candidato) {
+function ModificaOfertaPsico($id, $campos) {
+	$campos["estado"] = (!isset($campos["estado"])) ? "" : $campos["estado"];
 	$conex = BD::GetInstance();
-	$sql = "update tbl_ofertas set estado = '$estado', candidato_seleccionado = '$candidato_seleccionado', otros_datos_candidato = '$otros_datos_candidato' where id = '$id'";
+	$sql = "update tbl_ofertas set estado = '$campos[estado]', candidato_seleccionado = '$campos[candidato_seleccionado]', otros_datos_candidato = '$campos[otros_datos_candidato]' where id = '$id'";
 	$conex->Ejecutar($sql);
 }
 
@@ -93,7 +97,7 @@ function SwitchCriterio($criterio) {
 	return $crit;
 }
 
-function BuscaOfertasPaginacion($campos, $inicio, $tamano_pagina) {
+function BuscaOfertas($campos, $inicio, $tamano_pagina) {
 	$conex = BD::getInstance();
 	if(!empty(trim($campos["descripcion"]))) {
 		if ($campos["criterio1"] == "cont") {
@@ -114,7 +118,7 @@ function BuscaOfertasPaginacion($campos, $inicio, $tamano_pagina) {
 		}
 		$query[] = "persona_contacto " .  SwitchCriterio($campos['criterio3']) . " '" . $campos["persona_contacto"] . "'";
 	}
-	$sql = "select *, DATE_FORMAT(fecha_creacion,'%d/%m/%Y') as fecha from tbl_ofertas where " . implode(" and ", $query) . "order by fecha_creacion desc limit $inicio, $tamano_pagina";
+	$sql = "select *, DATE_FORMAT(fecha_creacion,'%d/%m/%Y') as fecha_creacion from tbl_ofertas where " . implode(" and ", $query) . "order by fecha_creacion desc limit $inicio, $tamano_pagina";
 	$conex->Consulta($sql);
 	while ($rs = $conex->LeeRegistro()) {
 		$resultados[] = $rs;
@@ -163,6 +167,9 @@ function DatosUnaOferta($id) {
 	while ($rs = $conex->LeeRegistro()) {
 		$datos[] = $rs;
 	}
+	foreach ($datos as $dato) {
+		$datos = $dato;
+	}
 	return $datos;
 }
 
@@ -181,27 +188,28 @@ function TextoEstado($estado) {
 		case "C":
 			$texto = "Cancelada";
 			break;
+		default:
+			$texto = "Sin estado asignado";
+			break;
 	}
 	return $texto;
 }
 
-function RefVolver() {
-	if (isset($_SESSION["url_buscar"])) {
-		$ctrl = "?" . $_SESSION["url_buscar"];
+function HaceXDias($fecha_creacion) {
+	$fecha_creacion = explode("/", $fecha_creacion);
+	$fecha_creacion = date_create($fecha_creacion[2] . "-" . $fecha_creacion[1] . "-" . $fecha_creacion[0]);
+	$hoy = date_create("now");
+	$interval = date_diff($fecha_creacion, $hoy);
+	$diferencia = $interval->format('%a');
+	switch ($diferencia) {
+		case 0:
+			return "Hoy";
+			break;
+		case 1:
+			return "Ayer";
+			break;
+		default:
+			return "Hace " . $diferencia . " días";
+			break;
 	}
-	elseif (EsAdmin()) {
-		$ctrl = "?ctrl=ctrl_admin";
-	} else {
-		$ctrl = "?ctrl=ctrl_psico";
-	}
-	
-	if (isset($_SESSION["page"]) && !isset($_SESSION["url_buscar"])) {
-		$page = "&page=" . $_SESSION["page"];
-	} else {
-		$page = "";
-	}
-	if ($_SESSION["page"] == 1) {
-		$page = "";
-	}
-	return $ctrl . $page;
 }

@@ -3,8 +3,7 @@
 		<div class="card card-block">
 			<h2 class="card-title text-md-center">Añadir nueva oferta</h2>
 			<hr>
-			<form method="post">
-				<?php
+			<form method="post"> <?php
 				if (!empty($errores)) { ?>
 					<div class="alert alert-danger">
 						<ul> <?php
@@ -94,7 +93,7 @@
 				</div>
 				<ul class="list-inline float-md-right">
 					<li class="list-inline-item"><button type="submit" class="btn btn-primary">Añadir</button></li>
-					<li class="list-inline-item"><a href="<?=$ref_volver1?>" class="btn btn-secondary">Cancelar</a></li>
+					<li class="list-inline-item"><a href="<?=$cancelar?>" class="btn btn-secondary">Cancelar</a></li>
 				</ul>
 			</form>
 		</div>
