@@ -5,7 +5,7 @@
 		</div>
 		<div class="text-md-center">
 			<?php
-			if (isset($error)) { ?>
+			if ($error) { ?>
 				<div class="alert alert-danger col-md-6 offset-md-3">
 					<ul>
 						<li>Introduzca al menos un campo para buscar</li>
@@ -13,13 +13,13 @@
 				</div> <?php
 			} ?>
 			<h1 class="display-3">Búsqueda</h1>
-			<hr>
+			<hr class="hr_white">
 			<form method="get">
 				<input type="hidden" name="ctrl" value="ctrl_buscar">
 				<div class="row">
 					<div class="col-md-4"><h3>Descripción:</h3></div>
 					<div class="col-md-4">
-						<?= CreaSelect("criterio1", $campos, ValorGet('criterio1')) ?>
+						<?= CreaSelect("criterio1", $criterios, htmlentities(ValorGet('criterio1'))) ?>
 					</div>
 					<div class="col-md-4">
 						<div class="input-group">
@@ -30,7 +30,7 @@
 				<div class="row">
 					<div class="col-md-4"><h3>Fecha de creación:</h3></div>
 					<div class="col-md-4">
-						<?= CreaSelect("criterio2", $campos, ValorGet('criterio2')) ?>
+						<?= CreaSelect("criterio2", $criterios, htmlentities(ValorGet('criterio2'))) ?>
 					</div>
 					<div class="col-md-4">
 						<div class="input-group">
@@ -41,7 +41,7 @@
 				<div class="row">
 					<div class="col-md-4"><h3>Persona de contacto</h3></div>
 					<div class="col-md-4">
-						<?= CreaSelect("criterio3", $campos, ValorGet('criterio3')) ?>
+						<?= CreaSelect("criterio3", $criterios, htmlentities(ValorGet('criterio3'))) ?>
 					</div>
 					<div class="col-md-4">
 						<div class="input-group">
@@ -59,10 +59,11 @@
 				<div class="card encabezado_oferta text-md-center">
 					<h1 class="card-title">No hay ofertas para mostrar</h1>
 				</div> <?php
-			} else {
+			} else { ?>
+				<h4 id="total_resultados"><strong>Total resultados:</strong> <?=$total_resultados?></h4> <?php
 				foreach ($resultados as $resultado) { ?>
-					<div class="card card_listaofertas">
-						<div class="encabezado_listaofertas">
+					<div class="card card_oferta">
+						<div class="encabezado_oferta">
 							<h3><?=$resultado["descripcion"]?><small> (<?=TextoEstado($resultado["estado"])?>)</small></h3>
 						</div>
 						<div class="card-block">
@@ -82,7 +83,7 @@
 							</table>
 							<hr class="hr_black">
 							<a href="?ctrl=ctrl_informacion&id=<?=$resultado['id']?>" id="informacion"><i class="fa fa-info" aria-hidden="true"></i> Información</a> | 
-							<a href="?ctrl=<?=$mod?>&id=<?=$resultado['id']?>" id="modificar"><i class="fa fa-pencil" aria-hidden="true"></i> Modificar</a> <?php
+							<a href="?ctrl=ctrl_modificar&id=<?=$resultado['id']?>" id="modificar"><i class="fa fa-pencil" aria-hidden="true"></i> Modificar</a> <?php
 							if (EsAdmin()) { ?>
 								| <a href="?ctrl=ctrl_eliminar&id=<?=$resultado['id']?>" id="eliminar"><i class="fa fa-times" aria-hidden="true"></i> Eliminar</a> <?php
 							} ?>
@@ -92,6 +93,6 @@
 				}
 			}
 	if (!empty($resultados)) {
-		Paginacion($total_resultados, $tamano_pagina, $total_paginas, $page);
+		Paginacion($total_resultados, $tamano_pagina, $total_paginas, $_SESSION["page"]);
 	} ?>
 </div>

@@ -6,6 +6,10 @@ body {
     margin-top: 1%;
 }
 
+#total_resultados {
+    margin-bottom: -1.4%;
+}
+
 #body-login {
     background-image: url("../img/fondo-login.jpg");
     background-size: 100%;
@@ -24,10 +28,14 @@ tbody {
 }
 
 
-.card_listaofertas {
+.card_oferta {
     border-radius: 20px;
     box-shadow: 6px 6px 6px #888888;
     margin-top: 1.5%;
+}
+
+#no_ofertas {
+    margin-top: 1%;
 }
 
 #hacexdias {
@@ -55,9 +63,8 @@ textarea {
 	resize: none;
 }
 
-.encabezado_listaofertas {
+.encabezado_oferta {
     background-color: #262626;
-    /*background: linear-gradient(141deg, #262626 0%, #262626 51%, #404040 100%);*/
     color: white;
     padding: 1%;
 }

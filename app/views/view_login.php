@@ -2,7 +2,7 @@
 <body id="body-login">
 <div class="container">
 	<div class="card card-block col-md-6 offset-md-3" id="card_login"> <?php
-		if (isset($error)) { ?>
+		if ($error) { ?>
 			<div class="alert alert-danger col-md-8 offset-md-2">
 				<ul>
 					<li>Usuario/contraseña incorrectos.</li>

@@ -4,11 +4,12 @@ if (EsAdmin()) {
 	include HELP_PATH."helper.php";
 	include HELP_PATH."filtrados.php";
 	if (!$_POST) {
-		include VIEW_PATH."view_anadir_usuario.php";
+		$errores = [];
+		include VIEW_PATH."view_anadir_usuarios.php";
 	} else {
 		$errores = FiltradoUsuarios();
-		if (!empty($errores)) {
-			include VIEW_PATH."view_anadir_usuario.php";
+		if ($errores) {
+			include VIEW_PATH."view_anadir_usuarios.php";
 		} else {
 			AnadirUsuario($_POST);
 			header("location: ?ctrl=ctrl_usuarios");

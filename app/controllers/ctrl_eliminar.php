@@ -1,7 +1,7 @@
 <?php
 include MODEL_PATH."model_usuarios.php";
-include HELP_PATH."helper.php";
 if (EsAdmin()) {
+	include HELP_PATH."helper.php";
 	include MODEL_PATH."model_ofertas.php";
 	include MODEL_PATH."model_provincias.php";
 	if (!$_POST) {

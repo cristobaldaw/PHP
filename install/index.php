@@ -1,12 +1,13 @@
+<?php include "../app/helpers/helper.php"; ?>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css">
-	<script src="../assets/js/jquery.js"></script>
-	<script src="../assets/js/bootstrap.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
 	<link rel="stylesheet" href="../assets/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="../assets/css/estilos.css">
 	<title>Instalador</title>
@@ -25,6 +26,10 @@
 </html>
 
 <?php
+/**
+ * Formulario del instalador
+ * @param boolean $error Indica si ha habido un error al enviar el formulario
+ */
 Function Formulario($error) { ?>
 	<div class="container">
 		<div class="col-md-8 offset-md-2">
@@ -74,28 +79,39 @@ Function Formulario($error) { ?>
 	</div> <?php
 }
 
+/**
+ * Nos dice si hay errores al enviar el formulario
+ * @return boolean
+ */
 Function HayErrores() {
 	include "../app/config.php";
-	if ($_POST["servidor"] != $db_conf["servidor"] || $_POST["usuario"] != $db_conf["usuario"] || $_POST["password"] != $db_conf["password"] || $_POST["base_datos"] != $db_conf["base_datos"]) {
+	if ($_POST["servidor"] != $db_conf["servidor"] || $_POST["usuario"] != $db_conf["usuario"] || $_POST["password"] != $db_conf["password"] || EstaVacio($_POST["base_datos"]))	 {
 		return true;
 	} else {
 		return false;
 	}
 }
 
+/**
+ * Crea la base de datos y modifica el archivo config
+ */
 function CreaBD() {
-	$sql = file_get_contents("jobyesterdaydb.sql");
+	$file = fopen("../app/config.php", "w");
+	fwrite($file, 
+'<?php
+$db_conf = array(
+	"servidor" => "localhost",
+	"usuario" => "root",
+	"password" => "",
+	"base_datos" => "' . $_POST["base_datos"] . '");');
+	fclose($file);
+	$creabd = "CREATE DATABASE IF NOT EXISTS `". $_POST["base_datos"] . "` DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci;
+	USE `". $_POST["base_datos"] . "`;";
+	$sql = $creabd . file_get_contents("jobyesterdaydb.sql");
  	$db = new mysqli($_POST["servidor"], $_POST["usuario"], $_POST["password"]);
  	$db->multi_query($sql); ?>
  	<div class="card card-block text-md-center col-md-6 offset-md-3">
  		<h1>Base de datos creada con éxito</h1>
- 		<a href="../app/index.php" class="btn btn-primary">Ir a la aplicación</a>
+ 		<a href="../app" class="btn btn-primary">Ir a la aplicación</a>
  	</div> <?php
-}
-
-function ValorPost($nombreCampo, $valorPorDefecto = '') {
-	if (isset ($_POST[$nombreCampo] ))
-		return $_POST[$nombreCampo];
-	else
-		return $valorPorDefecto;
 }

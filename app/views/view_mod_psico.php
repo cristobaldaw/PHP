@@ -3,7 +3,7 @@
 		<div class="card card-block text-md-center">
 			<h2 class="card-title">Información sobre la oferta</h2>
 			<hr class="hr_black">
-			<table class="table table-hover table-sm">
+			<table class="table table-hover table-sm borderless">
 				<tr>
 					<td><strong>Descripción: </strong><?=$datos['descripcion']?></td>
 				</tr>
@@ -46,18 +46,8 @@
 	<div class="col-md-6">		
 		<div class="card card-block">
 			<h2 class="card-title text-md-center">Modificar oferta</h2>
-			<hr>
+			<hr class="hr_black">
 			<form method="post">
-				<?php
-				if (!empty($errores)) { ?>
-					<div class="alert alert-danger">
-						<ul> <?php
-							foreach ($errores as $error) { ?>
-								<li><?=$error?></li> <?php
-							} ?>
-						</ul>
-					</div> <?php
-				} ?>
 				<div class="form-group row">
 					<label for="estado" class="col-md-4 col-form-label"><strong>Estado</strong></label>
 					<div class="col-md-8">
@@ -77,7 +67,7 @@
 					</div>
 				</div>
 				<div class="text-md-right">
-					<button type="submit" name="modificar2" class="btn btn-primary">Modificar</button>
+					<button type="submit" class="btn btn-primary">Modificar</button>
 					<a href="<?=$cancelar?>" class="btn btn-secondary">Cancelar</a>
 				</div>
 			</form>

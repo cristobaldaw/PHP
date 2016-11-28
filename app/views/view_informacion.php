@@ -1,7 +1,7 @@
 <div class="container">
 	<div class="col-md-8 offset-md-2">
 		<div class="card card-block">
-			<h2 class="card-title text-md-center	">Información completa sobre la oferta</h2>
+			<h2 class="card-title text-md-center">Información completa sobre la oferta</h2>
 			<hr class="hr_black">
 			<table class="table table-hover borderless">
 				<tr>

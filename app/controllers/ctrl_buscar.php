@@ -1,19 +1,20 @@
 <?php
 include MODEL_PATH."model_usuarios.php";
-if (EsAdmin() || EsPsico()) {
+if (EstaDentro()) {
 	include MODEL_PATH."model_ofertas.php";
 	include MODEL_PATH."model_provincias.php";
 	include HELP_PATH."helper.php";
 	include HELP_PATH."filtrados.php";
-	$mod = (EsAdmin()) ? "ctrl_mod_admin" : "ctrl_mod_psico";
-
-	$tamano_pagina = 10;
+	$error = false;
+	$tamano_pagina = 5;
+	
 	if (!isset($_GET["page"])) {
 	    $inicio = 0;
-	    $page = 1;
+	    $_SESSION["page"] = 1;
+	    $_SESSION["url_buscar"] = "?" . $_SERVER['QUERY_STRING'];
 	} else {
-		$page = $_GET["page"];
-	    $inicio = ($page - 1) * $tamano_pagina;
+		$_SESSION["page"] = $_GET["page"];
+	    $inicio = ($_SESSION["page"] - 1) * $tamano_pagina;
 	}
 
 	$total_resultados = "";
@@ -21,7 +22,6 @@ if (EsAdmin() || EsPsico()) {
 		if (EstaVacio($_GET["descripcion"]) && EstaVacio($_GET["fecha_creacion"]) && EstaVacio($_GET["persona_contacto"])) {
 			$error = true;
 		} else {
-			$_SESSION["url_buscar"] = "?" . $_SERVER['QUERY_STRING'];
 			$resultados = BuscaOfertas($_GET, $inicio, $tamano_pagina);
 			$total_resultados = TotalResultados($_GET);
 			$total_paginas = ceil($total_resultados / $tamano_pagina);

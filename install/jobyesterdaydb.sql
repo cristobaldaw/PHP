@@ -16,12 +16,6 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
---
--- Base de datos: `jobyesterdaydb`
---
-CREATE DATABASE IF NOT EXISTS `jobyesterdaydb` DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci;
-USE `jobyesterdaydb`;
-
 -- --------------------------------------------------------
 
 --

@@ -1,17 +1,22 @@
 <?php
-include_once "bd_singleton.php";
+include_once "class_bd.php";
 
+/**
+ * Devuelve el nombre de una provincia según su cod
+ * @param int $cod
+ * @return string
+ */
 function NombreProvincia($cod) {
 	$conex = BD::getInstance();
 	$conex->Consulta("select nombre from tbl_provincias where cod = '$cod'");
-	while ($rs = $conex->LeeRegistro()) {
-		$nombre = $rs;
-	}
-	if (!empty($nombre)) {
-		return $nombre["nombre"];
-	}
+	$rs = $conex->LeeRegistro();
+	return $rs["nombre"];	
 }
 
+/**
+ * Devuelve la lista de provincias ordenadas alfabéticamente
+ * @return array
+ */
 function ListaProvincias() {
 	$conex = BD::getInstance();
 	$conex->Consulta("select * from tbl_provincias order by nombre");

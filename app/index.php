@@ -32,7 +32,6 @@ define("TEMPLATE_PATH", __DIR__."/template/");
 <body>
 <?php
 // Cuerpo del controlador frontal
-include "config.php";
 session_start();
 include TEMPLATE_PATH."header.php"; ?>
 <div class="cuerpo"> <?php
@@ -45,7 +44,7 @@ include TEMPLATE_PATH."header.php"; ?>
 	} ?>
 </div>
 <?php
-if (EsAdmin() || EsPsico()) { // Para que no se muestre el footer en el login
+if (EstaDentro()) { // Para que no se muestre el footer en el login
 	include TEMPLATE_PATH."footer.php";
 } ?>
 </body>

@@ -1,11 +1,10 @@
 <?php
 include MODEL_PATH."model_usuarios.php";
-include HELP_PATH."helper.php";
-if (EsAdmin() || EsPsico()) {
+if (EstaDentro()) {
+	include HELP_PATH."helper.php";
 	include MODEL_PATH."model_ofertas.php";
 	include MODEL_PATH."model_provincias.php";
-	$id = $_GET["id"];
-	$datos = DatosUnaOferta($id);
+	$datos = DatosUnaOferta($_GET["id"]);
 	$cancelar = RefCancelar();
 	include VIEW_PATH."view_informacion.php";
 } else {

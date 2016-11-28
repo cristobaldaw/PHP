@@ -2,8 +2,8 @@
 	<div class="col-md-6 offset-md-3">
 		<div class="card card-block">
 			<h3 class="card-title  text-md-center">Añadir usuario</h3>
-			<?php
-			if (!empty($errores)) { ?>
+			<hr class="hr_black"> <?php
+			if ($errores) { ?>
 				<div class="alert alert-danger">
 					<ul>
 						<?php
@@ -20,18 +20,18 @@
 				</div>
 				<div class="form-group">
 					<label for="pass"><strong>Contraseña</strong></label>
-					<input type="password" name="pass" class="form-control" value="<?=ValorPost('pass')?>">
+					<input type="password" name="pass" class="form-control">
 				</div>
 				<div class="form-group">
 					<label for="conf_pass"><strong>Confirmar contraseña</strong></label>
-					<input type="password" name="conf_pass" class="form-control" value="<?=ValorPost('conf_pass')?>">
+					<input type="password" name="conf_pass" class="form-control">
 				</div>
 				<div class="form-group text-md-center">
 					<label for="tipo"><strong>Tipo de usuario</strong></label><br>
 					<?=CreaRadio("tipo", $tipos, ValorPost("tipo"))?>
 				</div>
 				<div class="text-md-center">
-					<button type="submit" class="btn btn-primary" name="conf_modificar">Añadir</button>
+					<button type="submit" class="btn btn-primary">Añadir</button>
 					<a href="?ctrl=ctrl_usuarios" class="btn btn-secondary">Cancelar</a>
 				</div>
 			</form>

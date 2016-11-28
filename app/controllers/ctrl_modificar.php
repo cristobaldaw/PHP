@@ -1,21 +1,22 @@
 <?php
 include MODEL_PATH."model_usuarios.php";
-if (EsAdmin() || EsPsico()) {
+if (EstaDentro()) {
 	include HELP_PATH."filtrados.php";
 	include MODEL_PATH."model_ofertas.php";
 	include MODEL_PATH."model_provincias.php";
 	include HELP_PATH."helper.php";
 	$datos = DatosUnaOferta($_GET["id"]);
-	$listaprovincias = ListaProvincias();
+	$lista_provincias = ListaProvincias();
 	$cancelar = RefCancelar();
 	$accion = "modificado";
 	$view = (EsAdmin()) ? "view_mod_admin.php" : "view_mod_psico.php";
 	if (!$_POST) {
+		$errores = false;
 		include VIEW_PATH.$view;
 	} else {
 		if (EsAdmin()) {
 			$errores = FiltradoOfertas();
-			if (!empty($errores)) {
+			if ($errores) {
 				include VIEW_PATH."view_mod_admin.php";
 			} else {
 				ModificaOfertaAdmin($_GET['id'], $_POST);

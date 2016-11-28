@@ -1,16 +1,9 @@
 <?php
-/* Clase encargada de gestionar las conexiones a la base de datos */
+include "config.php";
 
-// Datos de configuración. Estos podrían ir en otro fichero
-
-$db_conf=array(
-	'servidor'=>'localhost',
-	'usuario'=>'root',
-	'password'=>'',
-	'base_datos'=>'jobyesterdaydb'
-	);
-
-
+/**
+ * Clase encargada de gestionar las conexiones a la base de datos
+ */
 Class BD {
 	private $link;
 	private $result;
@@ -127,9 +120,13 @@ Class BD {
 			return NULL;
 		}
 	}
-
+        
+    /**
+     * Ejecuta una instrucción sql
+     * @param type $sql Instrucción a ejecutar
+     */
 	public function Ejecutar($sql){
 		$this->ejecutar = mysqli_query($this->link, $sql);
-		return $this->ejecutar;
+		$this->ejecutar;
 	}
 }

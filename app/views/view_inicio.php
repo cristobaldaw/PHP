@@ -8,33 +8,32 @@
 			<a href="?ctrl=ctrl_usuarios" class="btn btn-secondary"><i class="fa fa-user" aria-hidden="true"></i> Gestión de usuarios</a>
 		<?php } ?>
 		<a href="?ctrl=ctrl_buscar" class="btn btn-primary"><i class="fa fa-search" aria-hidden="true"></i> Buscar</a>
-	</div>
-	<div class="row">
-		<div class="col-md-8">
-			<form method="post">
-				<label for="orderby">Ordenar por:</label>
-				<?=CreaSelect("orderby", $orderby, $_SESSION["orderby"])?>
-				<?=CreaSelect("orden", $orden, $_SESSION["orden"])?>
-				<button type="submit" class="btn btn-primary">Ordenar</button>
-			</form>
-		</div>
-		<div class="col-md-4 text-md-right">
-			<form method="post">
-				<label for="tamano_pagina">Nº de ofertas por página:</label>
-				<?=CreaSelect("tamano_pagina", $tamano_pagina, $_SESSION["tamano_pagina"])?>
-				<button type="submit" class="btn btn-primary">Enviar</button>
-			</form>
-		</div>
 	</div> <?php
-		if (empty($lista)) { ?>
-			<div class="card encabezado_oferta text-md-center">
-				<h1 class="card-title">No hay ofertas para mostrar</h1>
-				<a href="?ctrl=ctrl_anadir" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Añadir nueva oferta</a></div>
+		if (!$lista_ofertas) { ?>
+			<div class="alert alert-danger text-md-center" id="no_ofertas">
+				No hay ofertas para mostrar.
 			</div> <?php
-		} else {
-			foreach ($lista as $oferta) { ?>
-				<div class="card card_listaofertas">
-					<div class="encabezado_listaofertas">
+		} else { ?>
+			<div class="row">
+				<div class="col-md-8">
+					<form method="post">
+						<label for="orderby">Ordenar por:</label>
+						<?=CreaSelect("orderby", $orderby, $_SESSION["orderby"])?>
+						<?=CreaSelect("orden", $orden, $_SESSION["orden"])?>
+						<button type="submit" class="btn btn-primary">Ordenar</button>
+					</form>
+				</div>
+				<div class="col-md-4 text-md-right">
+					<form method="post">
+						<label for="tamano_pagina">Nº de ofertas por página:</label>
+						<?=CreaSelect("tamano_pagina", $tamano_pagina, $_SESSION["tamano_pagina"])?>
+						<button type="submit" class="btn btn-primary">Enviar</button>
+					</form>
+				</div>
+			</div> <?php
+			foreach ($lista_ofertas as $oferta) { ?>
+				<div class="card card_oferta">
+					<div class="encabezado_oferta">
 						<h3><?=$oferta["descripcion"]?><small> (<?=TextoEstado($oferta["estado"])?>)</small></h3>
 					</div>
 					<div class="card-block">

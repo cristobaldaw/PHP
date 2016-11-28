@@ -1,12 +1,23 @@
 <?php
 
+/**
+ * Devuelve el valor del post si hay, si no devuelve el valor por defecto
+ * @param string $nombreCampo Nombre del campo
+ * @param string $valorPorDefecto Valor por defecto
+ * @return string
+ */
 function ValorPost($nombreCampo, $valorPorDefecto = '') {
 	if (isset ($_POST[$nombreCampo] ))
 		return $_POST[$nombreCampo];
 	else
 		return $valorPorDefecto;
 }
-
+ /**
+  * Devuelve el valor del get si hay, si no devuelve el valor por defecto
+  * @param string $nombreCampo Nombre del campo
+  * @param string $valorPorDefecto Valor por defecto
+  * @return string
+  */
 function ValorGet($nombreCampo, $valorPorDefecto = '') {
 	if (isset($_GET[$nombreCampo]))
 		return $_GET[$nombreCampo];
@@ -14,9 +25,19 @@ function ValorGet($nombreCampo, $valorPorDefecto = '') {
 		return $valorPorDefecto;
 }
 
-function CreaSelect($name, $opciones, $valorDefecto = '')
+/**
+ * Crea un select en HTML
+ * @param string $name Name del select
+ * @param array $opciones Opciones del select
+ * @param string $valorDefecto Valor por defecto del select
+ * @param bool $seleccione Si es true, la primera opción será nula
+ * @return string
+ */
+function CreaSelect($name, $opciones, $valorDefecto = '', $seleccione = false)
 {
 	$html="\n".'<select name="'.$name.'" class="custom-select">';
+        if ($seleccione)
+			$html.= "\n\t<option value=\"\">- Seleccione -</option>";
 	foreach($opciones as $value=>$text)
 	{
 		if ($value==$valorDefecto)
@@ -30,6 +51,13 @@ function CreaSelect($name, $opciones, $valorDefecto = '')
 	return $html;
 }
 
+/**
+ * Crea un grupo de radiobutton en HTML
+ * @param string $name Name del radiobutton
+ * @param array $opciones Opciones del radiobutton
+ * @param string $valorDefecto Valor por defecto del radiobutton
+ * @return string
+ */
 function CreaRadio($name, $opciones, $valorDefecto='') {
 	foreach ($opciones as $value=>$text)
 	{
@@ -41,10 +69,18 @@ function CreaRadio($name, $opciones, $valorDefecto='') {
 				$checked="";
 			$html.="\n<label><input type=\"radio\" name=\"$name\" value=\"$value\" $checked> $text</label><br>";
 		}
-		return $html;
 	}
+	return $html;
 }
 
+/**
+ * Paginación
+ * @param int $total_registros Total de registros a paginar
+ * @param int $tamano_pagina Tamaño total de la página
+ * @param int $total_paginas Total de páginas
+ * @param int $page Página actual
+ * @param string $ctrl Controlador actual
+ */
 function Paginacion($total_registros, $tamano_pagina, $total_paginas, $page, $ctrl='') {
 	$url = (isset($_SESSION["url_buscar"])) ? $_SESSION["url_buscar"] : "?ctrl=$ctrl";
 	if ($page > $total_paginas && $total_registros > 0) { // Si introduzco una página mayor que el total de páginas, voy a la última página
@@ -75,21 +111,12 @@ function Paginacion($total_registros, $tamano_pagina, $total_paginas, $page, $ct
 	}
 }
 
+/**
+ * Almacena la referencia de la página a la que debo volver en caso de cancelar
+ * @return string
+ */
 function RefCancelar() {
-	if (isset($_SESSION["url_buscar"])) {
-		$ctrl = $_SESSION["url_buscar"];
-	}
-	else {
-		$ctrl = "?ctrl=ctrl_inicio";
-	}
-	
-	if (isset($_SESSION["page"]) && !isset($_SESSION["url_buscar"])) {
-		$page = "&page=" . $_SESSION["page"];
-	} else {
-		$page = "";
-	}
-	if ($_SESSION["page"] == 1) {
-		$page = "";
-	}
+	$ctrl = (isset($_SESSION["url_buscar"])) ? $_SESSION["url_buscar"] : "?ctrl=ctrl_inicio";
+	$page = (isset($_SESSION["page"]) && $_SESSION["page"] != 1) ? "&page=" . $_SESSION["page"] : "";
 	return $ctrl . $page;
 }

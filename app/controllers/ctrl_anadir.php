@@ -7,12 +7,12 @@ if (EsAdmin()) {
 	include MODEL_PATH."model_provincias.php";
 	$listaprovincias = ListaProvincias();
 	$cancelar = RefCancelar();
-	
 	if (!$_POST) {
+		$errores = [];
 		include VIEW_PATH."view_anadir.php";
 	} else {
 		$errores = FiltradoOfertas();
-		if (!empty($errores)) {
+		if ($errores) {
 			include VIEW_PATH."view_anadir.php";
 		} else {
 			InsertaOferta($_POST);

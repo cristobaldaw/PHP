@@ -2,9 +2,9 @@
 	<div class="col-md-8 offset-md-2">		
 		<div class="card card-block">
 			<h2 class="card-title text-md-center">Añadir nueva oferta</h2>
-			<hr>
+			<hr class="hr_black">
 			<form method="post"> <?php
-				if (!empty($errores)) { ?>
+				if ($errores) { ?>
 					<div class="alert alert-danger">
 						<ul> <?php
 							foreach ($errores as $error) { ?>
@@ -16,37 +16,37 @@
 				<div class="form-group row">
 					<label for="descripcion" class="col-md-4 col-form-label"><strong>Descripción</strong></label>
 					<div class="col-md-8">
-						<textarea class="form-control" rows="3" name="descripcion"><?=ValorPost('descripcion')?></textarea>
+						<textarea class="form-control" rows="3" name="descripcion" maxlength="200"><?=ValorPost('descripcion')?></textarea>
 					</div>
 				</div>
 				<div class="form-group row">
 					<label for="persona_contacto" class="col-md-4 col-form-label"><strong>Persona de contacto</strong></label>
 					<div class="col-md-8">
-						<input class="form-control" type="text" name="persona_contacto" value="<?=ValorPost('persona_contacto')?>">
+						<input class="form-control" type="text" name="persona_contacto" maxlength="40" value="<?=ValorPost('persona_contacto')?>">
 					</div>
 				</div>
 				<div class="form-group row">
 					<label for="telefono_contacto" class="col-md-4 col-form-label"><strong>Teléfono de contacto</strong></label>
 					<div class="col-md-8">
-						<input class="form-control" type="text" name="telefono_contacto" value="<?=ValorPost('telefono_contacto')?>">
+						<input class="form-control" type="text" name="telefono_contacto" maxlength="13" value="<?=ValorPost('telefono_contacto')?>">
 					</div>
 				</div>
 				<div class="form-group row">
 					<label for="email" class="col-md-4 col-form-label"><strong>Correo electrónico</strong></label>
 					<div class="col-md-8">
-						<input class="form-control" type="text" name="email" value="<?=ValorPost('email')?>">
+						<input class="form-control" type="text" name="email" maxlength="40" value="<?=ValorPost('email')?>">
 					</div>
 				</div>
 				<div class="form-group row">
 					<label for="direccion" class="col-md-4 col-form-label"><strong>Dirección</strong></label>
 					<div class="col-md-8">
-						<input class="form-control" type="text" name="direccion" value="<?=ValorPost('direccion')?>">
+						<input class="form-control" type="text" name="direccion" maxlength="100" value="<?=ValorPost('direccion')?>">
 					</div>
 				</div>
 				<div class="form-group row">
 					<label for="poblacion" class="col-md-4 col-form-label"><strong>Población</strong></label>
 					<div class="col-md-8">
-						<input class="form-control" type="text" name="poblacion" value="<?=ValorPost('poblacion')?>">
+						<input class="form-control" type="text" name="poblacion" maxlength="30" value="<?=ValorPost('poblacion')?>">
 					</div>
 				</div>
 				<div class="form-group row">
@@ -58,7 +58,7 @@
 				<div class="form-group row">
 					<label for="example-datetime-local-input" class="col-md-4 col-form-label"><strong>Provincia</strong></label>
 					<div class="col-md-8">
-						<?= CreaSelect('provincia', $listaprovincias, ValorPost('provincia')); ?>
+						<?= CreaSelect('provincia', $listaprovincias, ValorPost('provincia'), $seleccione = true); ?>
 					</div>
 				</div>
 				<div class="form-group row">
@@ -70,25 +70,25 @@
 				<div class="form-group row">
 					<label for="fecha_comunicacion" class="col-md-4 col-form-label"><strong>Fecha de comunicación</strong></label>
 					<div class="col-md-8">
-						<input class="form-control" type="text" placeholder="dd/mm/aaaa" name="fecha_comunicacion"  value="<?=ValorPost('fecha_comunicacion')?>">
+						<input class="form-control" type="text" placeholder="dd/mm/aaaa" name="fecha_comunicacion" maxlength="10"  value="<?=ValorPost('fecha_comunicacion')?>">
 					</div>
 				</div>
 				<div class="form-group row">
 					<label for="psicologo_encargado" class="col-md-4 col-form-label"><strong>Psicólogo encargado</strong></label>
 					<div class="col-md-8">
-						<input class="form-control" type="text" name="psicologo_encargado"  value="<?=ValorPost('psicologo_encargado')?>">
+						<input class="form-control" type="text" name="psicologo_encargado" maxlength="40"  value="<?=ValorPost('psicologo_encargado')?>">
 					</div>
 				</div>
 				<div class="form-group row">
 					<label for="candidato_seleccionado" class="col-md-4 col-form-label"><strong>Candidato seleccionado</strong></label>
 					<div class="col-md-8">
-						<input class="form-control" type="text" name="candidato_seleccionado"  value="<?=ValorPost('candidato_seleccionado')?>">
+						<input class="form-control" type="text" name="candidato_seleccionado" maxlength="40"  value="<?=ValorPost('candidato_seleccionado')?>">
 					</div>
 				</div>
 				<div class="form-group row">
 					<label for="otros_datos_candidato" class="col-md-4 col-form-label"><strong>Otros datos del candidato</strong></label>
 					<div class="col-md-8">
-						<textarea class="form-control" rows="3" name="otros_datos_candidato"><?=ValorPost('otros_datos_candidato')?></textarea>
+						<textarea class="form-control" rows="3" name="otros_datos_candidato" maxlength="200"><?=ValorPost('otros_datos_candidato')?></textarea>
 					</div>
 				</div>
 				<ul class="list-inline float-md-right">

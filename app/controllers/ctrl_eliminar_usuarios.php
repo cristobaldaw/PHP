@@ -1,13 +1,17 @@
 <?php
 include MODEL_PATH."model_usuarios.php";
 if (EsAdmin()) {
-	$datos = DatosUsuario("id", $_GET['id']);
-	$error = ($_SESSION["usuario"]) == $datos["usuario"] ? true : false;
+	$usuario = DatosUsuario("id", $_GET['id']);
+	$usuario["tipo"] = ($usuario["tipo"] == "A") ? "Administrador" : "Psicólogo";
+	$logueado = ($_SESSION["usuario"]) == $usuario["usuario"] ? true : false;
 	if (!$_POST) {
 		include VIEW_PATH."view_eliminar_usuarios.php";
 	} else {
 		EliminaUsuario($_GET['id']);
-		header("location: ?ctrl=ctrl_usuarios");
+		if ($logueado)
+			header("location: ?ctrl=logout");
+		else
+			header("location: ?ctrl=ctrl_usuarios");
 	}
 } else {
 	header("location: ?ctrl=ctrl_login");
