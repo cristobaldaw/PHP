@@ -3,4 +3,4 @@ $db_conf = array(
 	"servidor" => "localhost",
 	"usuario" => "root",
 	"password" => "",
-	"base_datos" => "jobyesterdaydb");
+	"base_datos" => "prueba");

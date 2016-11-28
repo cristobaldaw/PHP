@@ -85,7 +85,7 @@ Function Formulario($error) { ?>
  */
 Function HayErrores() {
 	include "../app/config.php";
-	if ($_POST["servidor"] != $db_conf["servidor"] || $_POST["usuario"] != $db_conf["usuario"] || $_POST["password"] != $db_conf["password"] || EstaVacio($_POST["base_datos"]))	 {
+	if ($_POST["servidor"] != $db_conf["servidor"] || $_POST["usuario"] != $db_conf["usuario"] || $_POST["password"] != $db_conf["password"] || empty(trim($_POST["base_datos"])))	 {
 		return true;
 	} else {
 		return false;

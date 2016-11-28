@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-11-2016 a las 23:33:22
+-- Tiempo de generación: 28-11-2016 a las 13:30:12
 -- Versión del servidor: 10.1.16-MariaDB
 -- Versión de PHP: 5.6.24
 
@@ -24,27 +24,27 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `tbl_ofertas` (
   `id` int(11) NOT NULL,
-  `descripcion` varchar(150) COLLATE utf8_spanish_ci NOT NULL,
-  `persona_contacto` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `descripcion` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
+  `persona_contacto` varchar(40) COLLATE utf8_spanish_ci NOT NULL,
   `telefono_contacto` varchar(13) COLLATE utf8_spanish_ci NOT NULL,
-  `email` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
+  `email` varchar(40) COLLATE utf8_spanish_ci NOT NULL,
   `direccion` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `poblacion` varchar(20) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `poblacion` varchar(30) COLLATE utf8_spanish_ci DEFAULT NULL,
   `codigo_postal` varchar(5) COLLATE utf8_spanish_ci DEFAULT NULL,
   `provincia` varchar(20) COLLATE utf8_spanish_ci DEFAULT NULL,
   `estado` char(1) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `fecha_creacion` date DEFAULT NULL,
+  `fecha_creacion` datetime DEFAULT NULL,
   `fecha_comunicacion` date DEFAULT NULL,
-  `psicologo_encargado` varchar(20) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `candidato_seleccionado` varchar(20) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `otros_datos_candidato` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL
+  `psicologo_encargado` varchar(40) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `candidato_seleccionado` varchar(40) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `otros_datos_candidato` varchar(200) COLLATE utf8_spanish_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Disparadores `tbl_ofertas`
 --
 
-CREATE TRIGGER `TriggerFechaCreacion` BEFORE INSERT ON `tbl_ofertas` FOR EACH ROW set new.fecha_creacion = curdate();
+CREATE TRIGGER `TriggerFechaCreacion` BEFORE INSERT ON `tbl_ofertas` FOR EACH ROW set new.fecha_creacion = now();
 
 -- --------------------------------------------------------
 
@@ -167,7 +167,7 @@ ALTER TABLE `tbl_usuarios`
 -- AUTO_INCREMENT de la tabla `tbl_ofertas`
 --
 ALTER TABLE `tbl_ofertas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=382;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT de la tabla `tbl_usuarios`
 --
